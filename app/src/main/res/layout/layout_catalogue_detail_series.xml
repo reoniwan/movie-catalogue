@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <include
-            android:id="@+id/toolbar_detail"
+            android:id="@+id/toolbar_detail_series"
             layout="@layout/app_bar_main"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -24,11 +24,11 @@
             android:layout_width="match_parent"
             android:layout_height="310dp"
             android:background="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_detail"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_detail_series"
             android:contentDescription="@string/background" />
 
         <ImageView
-            android:id="@+id/img_movie_detail"
+            android:id="@+id/img_series_detail"
             android:layout_width="150dp"
             android:layout_height="250dp"
             android:layout_marginStart="16dp"
@@ -39,11 +39,11 @@
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toTopOf="@+id/include"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_detail"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_detail_series"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/txt_rating_detail"
+            android:id="@+id/txt_rating_detail_series"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -54,11 +54,11 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/img_movie_detail"
-            app:layout_constraintEnd_toEndOf="@+id/img_movie_detail"
+            app:layout_constraintBottom_toBottomOf="@+id/img_series_detail"
+            app:layout_constraintEnd_toEndOf="@+id/img_series_detail"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toTopOf="@+id/img_movie_detail"
+            app:layout_constraintStart_toStartOf="@+id/img_series_detail"
+            app:layout_constraintTop_toTopOf="@+id/img_series_detail"
             app:layout_constraintVertical_bias="1.0"
             tools:text="@string/rating" />
 
@@ -74,45 +74,44 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toTopOf="@+id/img_movie_detail" />
+            app:layout_constraintStart_toEndOf="@+id/img_series_detail"
+            app:layout_constraintTop_toTopOf="@+id/img_series_detail" />
 
 
         <TextView
-            android:id="@+id/txt_title_movie_detail"
+            android:id="@+id/txt_title_series_detail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="5dp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
+            app:layout_constraintStart_toEndOf="@+id/img_series_detail"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="@string/movie_title" />
+            tools:text="Series Title" />
 
         <TextView
-            android:id="@+id/director"
+            android:id="@+id/studio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/director"
+            android:text="@string/studio"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title_movie_detail"
+            app:layout_constraintStart_toEndOf="@+id/img_series_detail"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title_series_detail"
             app:layout_goneMarginEnd="5dp" />
 
         <TextView
-            android:id="@+id/txt_director_name"
+            android:id="@+id/txt_studio_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -122,9 +121,9 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toBottomOf="@+id/director"
-            tools:text="@string/director_name" />
+            app:layout_constraintStart_toEndOf="@+id/img_series_detail"
+            app:layout_constraintTop_toBottomOf="@+id/studio"
+            tools:text="@string/studio_name" />
 
         <TextView
             android:id="@+id/release"
@@ -139,11 +138,11 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_director_name" />
+            app:layout_constraintStart_toEndOf="@+id/img_series_detail"
+            app:layout_constraintTop_toBottomOf="@+id/txt_studio_name" />
 
         <TextView
-            android:id="@+id/txt_release_title"
+            android:id="@+id/txt_release_title_series"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -153,7 +152,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
+            app:layout_constraintStart_toEndOf="@+id/img_series_detail"
             app:layout_constraintTop_toBottomOf="@+id/release"
             tools:text="@string/detail_release" />
 
@@ -169,11 +168,11 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_release_title" />
+            app:layout_constraintStart_toEndOf="@+id/img_series_detail"
+            app:layout_constraintTop_toBottomOf="@+id/txt_release_title_series" />
 
         <TextView
-            android:id="@+id/txt_detail_genre"
+            android:id="@+id/txt_detail_genre_series"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -184,7 +183,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
+            app:layout_constraintStart_toEndOf="@+id/img_series_detail"
             app:layout_constraintTop_toBottomOf="@+id/genre"
             tools:text="@string/detail_genre" />
 
@@ -197,7 +196,7 @@
 
         <include
             android:id="@+id/include"
-            layout="@layout/layout_catalogue_description"
+            layout="@layout/layout_catalogue_description_series"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

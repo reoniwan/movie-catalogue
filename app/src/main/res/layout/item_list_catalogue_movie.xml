@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="200dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="5dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
@@ -19,14 +20,16 @@
             android:layout_width="120dp"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/ic_launcher_background"
+            android:contentDescription="@string/image_movie" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toEndOf="@id/img_movie"
             android:orientation="vertical"
-            android:paddingStart="20dp">
+            android:paddingStart="20dp"
+            android:paddingEnd="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,20 +37,22 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txt_film_title"
+                    android:id="@+id/txt_movie_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Judul Film"
+                    android:fontFamily="@font/casper_marker"
+                    android:text="@string/title"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_film_name"
+                    android:id="@+id/txt_title_movie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:fontFamily="@font/casper_marker"
                     android:maxLines="1"
-                    android:text="Nama Film"
+                    tools:text="@string/movie_title"
                     android:textSize="17sp" />
 
             </LinearLayout>
@@ -58,20 +63,22 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txt_release_title"
+                    android:id="@+id/txt_release"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rilis"
+                    android:fontFamily="@font/casper_marker"
+                    android:text="@string/releases"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_release_film"
+                    android:id="@+id/txt_release_movie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:fontFamily="@font/casper_marker"
                     android:maxLines="2"
-                    android:text="Release"
+                    tools:text="@string/detail_release"
                     android:textSize="17sp" />
 
             </LinearLayout>
@@ -85,16 +92,19 @@
                     android:id="@+id/txt_rating_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rating"
+                    android:fontFamily="@font/casper_marker"
+                    android:text="@string/rating"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_rating_film"
+                    android:id="@+id/txt_rating_movie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rating"
-                    android:textSize="17sp" />
+                    android:drawableStart="@drawable/ic_star_black_24dp"
+                    android:fontFamily="@font/casper_marker"
+                    tools:text="@string/rating"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 

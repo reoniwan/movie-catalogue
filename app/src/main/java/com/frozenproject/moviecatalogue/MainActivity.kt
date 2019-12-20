@@ -3,58 +3,45 @@ package com.frozenproject.moviecatalogue
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.frozenproject.moviecatalogue.adapter.CatalogueAdapter
-import com.frozenproject.moviecatalogue.model.CatalogueModel
+import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
+import com.frozenproject.moviecatalogue.adapter.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view_pager
+import kotlinx.android.synthetic.main.app_bar_main.*
+
 
 class MainActivity : AppCompatActivity() {
-
-    private var listCatalogue: MutableList<CatalogueModel> = mutableListOf()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val actionBar = supportActionBar
-        actionBar?.title = "TOP FILM"
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        view_pager.adapter = sectionsPagerAdapter
+        tabs.setupWithViewPager(view_pager)
 
-        initData()
+        setSupportActionBar(toolbar)
+        toolbar.setLogo(R.drawable.ic_video_library_white_24dp)
 
-//        rv_catalogue.setHasFixedSize(true)
-        rv_catalogue.layoutManager = LinearLayoutManager(this)
+        supportActionBar?.elevation = 0f
 
-        rv_catalogue.adapter = CatalogueAdapter(listCatalogue, this) {
-            val movieDetail = Intent(this, CatalogueDetail::class.java)
-            movieDetail.putExtra("DETAIL", it)
-            startActivity(movieDetail)
-        }
     }
 
-    private fun initData() {
-        val imgCatalogue = resources.obtainTypedArray(R.array.image_film)
-        val nameFilm = resources.getStringArray(R.array.film_name)
-        val ratingFilm = resources.getStringArray(R.array.Rating)
-        val directorFilm = resources.getStringArray(R.array.directors)
-        val genreFilm = resources.getStringArray(R.array.Genre)
-        val dateFilm = resources.getStringArray(R.array.release)
-        val descFilm = resources.getStringArray(R.array.film_desc)
-        listCatalogue.clear()
-
-        for (i in nameFilm.indices) {
-            listCatalogue.add(
-                CatalogueModel(
-                    nameFilm[i],
-                    ratingFilm[i],
-                    directorFilm[i],
-                    dateFilm[i],
-                    imgCatalogue.getResourceId(i, 0),
-                    genreFilm[i],
-                    descFilm[i]
-                )
-            )
-        }
-        imgCatalogue.recycle()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
     }
+
+    override fun onOptionsItemSelected(v: MenuItem): Boolean {
+        if (v.itemId == R.id.action_change_settings) {
+            val menuIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+
+            startActivity(menuIntent)
+        }
+        return super.onOptionsItemSelected(v)
+    }
+
+
 }
