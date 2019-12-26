@@ -1,4 +1,4 @@
-package com.frozenproject.moviecatalogue.fragment.series
+package com.frozenproject.moviecatalogue.ui.catalogue.series
 
 
 import android.content.Intent
@@ -9,12 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.frozenproject.moviecatalogue.fragment.movie.CatalogueDetailMovie
 
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.adapter.CatalogueSeriesAdapter
-import com.frozenproject.moviecatalogue.callback.ISeriesClickListener
-import com.frozenproject.moviecatalogue.model.SeriesCatalogueModel
+import com.frozenproject.moviecatalogue.ui.adapter.CatalogueSeriesAdapter
+import com.frozenproject.moviecatalogue.internal.ISeriesClickListener
+import com.frozenproject.moviecatalogue.ui.model.SeriesCatalogueModel
 
 /**
  * A simple [Fragment] subclass.
@@ -50,7 +49,8 @@ class SeriesFragment : Fragment() {
         val adapter = CatalogueSeriesAdapter(listCatalogueSeries)
         recycleSeries.adapter = adapter
 
-        adapter.setOnClickCallback(object : ISeriesClickListener {
+        adapter.setOnClickCallback(object :
+            ISeriesClickListener {
             override fun onItemClicked(data: SeriesCatalogueModel) {
 
                 val intent = Intent(this@SeriesFragment.context, CatalogueDetailSeries::class.java)

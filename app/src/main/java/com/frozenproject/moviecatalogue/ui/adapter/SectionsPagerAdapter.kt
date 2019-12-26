@@ -1,4 +1,4 @@
-package com.frozenproject.moviecatalogue.adapter
+package com.frozenproject.moviecatalogue.ui.adapter
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.fragment.movie.MovieFragment
-import com.frozenproject.moviecatalogue.fragment.series.SeriesFragment
+import com.frozenproject.moviecatalogue.ui.catalogue.series.SeriesFragment
+import com.frozenproject.moviecatalogue.ui.catalogue.movie.MovieListFragment
 
 class SectionsPagerAdapter(
     private val mContext: Context,
@@ -24,7 +24,7 @@ class SectionsPagerAdapter(
         val fragmentMovie = 0
         val fragment: Fragment?
         fragment = if (position == fragmentMovie) {
-            MovieFragment.newInstance(position)
+            MovieListFragment.newInstance(position)
         } else {
             SeriesFragment.newInstance(position)
         }

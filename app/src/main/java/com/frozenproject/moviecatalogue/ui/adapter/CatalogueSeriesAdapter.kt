@@ -1,4 +1,4 @@
-package com.frozenproject.moviecatalogue.adapter
+package com.frozenproject.moviecatalogue.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.callback.ISeriesClickListener
-import com.frozenproject.moviecatalogue.model.SeriesCatalogueModel
+import com.frozenproject.moviecatalogue.internal.ISeriesClickListener
+import com.frozenproject.moviecatalogue.ui.model.SeriesCatalogueModel
 import kotlinx.android.synthetic.main.item_list_catalogue_series.view.*
 
 class CatalogueSeriesAdapter(

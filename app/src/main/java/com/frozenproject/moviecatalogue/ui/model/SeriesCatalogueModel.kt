@@ -1,4 +1,4 @@
-package com.frozenproject.moviecatalogue.model
+package com.frozenproject.moviecatalogue.ui.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

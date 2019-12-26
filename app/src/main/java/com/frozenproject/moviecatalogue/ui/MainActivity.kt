@@ -1,4 +1,4 @@
-package com.frozenproject.moviecatalogue
+package com.frozenproject.moviecatalogue.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
-import com.frozenproject.moviecatalogue.adapter.SectionsPagerAdapter
+import com.frozenproject.moviecatalogue.R
+import com.frozenproject.moviecatalogue.ui.adapter.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view_pager
 import kotlinx.android.synthetic.main.app_bar_main.*

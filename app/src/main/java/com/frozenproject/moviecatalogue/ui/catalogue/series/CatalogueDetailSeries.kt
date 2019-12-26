@@ -1,10 +1,10 @@
-package com.frozenproject.moviecatalogue.fragment.series
+package com.frozenproject.moviecatalogue.ui.catalogue.series
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.model.SeriesCatalogueModel
+import com.frozenproject.moviecatalogue.ui.model.SeriesCatalogueModel
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.layout_catalogue_description_series.*
 import kotlinx.android.synthetic.main.layout_catalogue_detail_series.*
