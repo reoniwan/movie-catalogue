@@ -8,15 +8,11 @@ import org.threeten.bp.LocalDate
 
 class MovieListViewModel(
     private val repository: CatalogueRepository
+
 ):ViewModel() {
 
-    private val unitSystem = UnitSystem.MOVIE
-
-    private val isMovie: Boolean
-    get() = unitSystem == UnitSystem.MOVIE
-
     val movieEntries by lazyDefferred {
-        repository.getMovieCatalogueList(isMovie)
+        repository.getMovieCatalogueList()
     }
 
 }

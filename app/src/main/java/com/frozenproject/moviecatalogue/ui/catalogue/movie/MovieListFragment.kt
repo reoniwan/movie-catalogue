@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.frozenproject.moviecatalogue.R
+import com.frozenproject.moviecatalogue.data.database.entity.ResultMovie
+import com.frozenproject.moviecatalogue.data.database.unit.movie.list.MovieSpesificCatalogueEntry
 import com.frozenproject.moviecatalogue.data.database.unit.movie.list.UnitSpecificMovieCatalogueEntry
 import com.frozenproject.moviecatalogue.data.network.APICatalogue
 import com.frozenproject.moviecatalogue.data.network.CatalogueNetworkDataSourceImpl
@@ -63,7 +65,6 @@ class MovieListFragment : ScopeFragment(), KodeinAware {
         val movieCatalogueEntries = viewModel.movieEntries.await()
 
         movieCatalogueEntries.observe(this@MovieListFragment, Observer { movieEntries ->
-            if (movieEntries == null) return@Observer
 
             initRecyclerView(movieEntries.toMovieCatalogueItems())
         })
@@ -74,6 +75,7 @@ class MovieListFragment : ScopeFragment(), KodeinAware {
             addAll(items)
         }
 
+        rv_catalogue_movie.setHasFixedSize(true)
         rv_catalogue_movie.apply {
             layoutManager = LinearLayoutManager(this@MovieListFragment.context, RecyclerView.VERTICAL, false)
             adapter = groupAdapter
@@ -82,7 +84,7 @@ class MovieListFragment : ScopeFragment(), KodeinAware {
     }
 }
 
-    private fun List<UnitSpecificMovieCatalogueEntry>.toMovieCatalogueItems(): List<MovieItem> {
+    private fun List<MovieSpesificCatalogueEntry>.toMovieCatalogueItems(): List<MovieItem> {
         return this.map {
             MovieItem(it)
         }

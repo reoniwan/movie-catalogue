@@ -6,9 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-const val MOVIE_ID = 0
 
-@Entity(tableName = "MovieCatalogue", indices = [Index(value = ["id"])])
 data class ResultMovie(
     @SerializedName("id")
     val idMovie: Int,
@@ -22,7 +20,4 @@ data class ResultMovie(
     val title: String,
     @SerializedName("vote_average")
     val voteAverage: Double
-){
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = MOVIE_ID
-}
+)

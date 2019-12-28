@@ -5,12 +5,12 @@ import androidx.room.ColumnInfo
 class MovieSpesificCatalogueEntry(
 
     @ColumnInfo(name = "title")
-    override val titleMovie: String?,
+    var titleMovie: String? = "",
     @ColumnInfo(name = "vote_average")
-    override val rating: Double?,
+    var rating: Double? = 0.0,
     @ColumnInfo(name = "release_date")
-    override val release: String?,
+    var release: String? = "",
     @ColumnInfo(name = "poster_path")
-    override val imageUrl: String?
+    var imageUrl: String? = ""
 
-):UnitSpecificMovieCatalogueEntry
+)
