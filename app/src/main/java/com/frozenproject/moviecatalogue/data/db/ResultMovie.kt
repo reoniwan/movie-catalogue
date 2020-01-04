@@ -1,11 +1,8 @@
-package com.frozenproject.moviecatalogue.data.database.entity
+package com.frozenproject.moviecatalogue.data.db
 
-
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-
+import kotlinx.android.parcel.Parcelize
 
 data class ResultMovie(
     @SerializedName("id")
@@ -13,11 +10,13 @@ data class ResultMovie(
     @SerializedName("overview")
     val overview: String,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val imageMovie: String,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("title")
     val title: String,
     @SerializedName("vote_average")
-    val voteAverage: Double
+    val rating: Double,
+    @SerializedName("genre_ids")
+    val genreMovie: List<Int>
 )

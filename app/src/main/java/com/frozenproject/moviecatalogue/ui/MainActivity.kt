@@ -11,13 +11,11 @@ import com.frozenproject.moviecatalogue.ui.adapter.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view_pager
 import kotlinx.android.synthetic.main.app_bar_main.*
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.closestKodein
 
 
-class MainActivity : AppCompatActivity(), KodeinAware {
 
-    override val kodein by closestKodein()
+class MainActivity : AppCompatActivity(){
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

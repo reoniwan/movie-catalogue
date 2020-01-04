@@ -1,38 +1,30 @@
 package com.frozenproject.moviecatalogue.ui.catalogue.movie
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.data.database.entity.ResultMovie
-import com.frozenproject.moviecatalogue.data.database.unit.movie.list.MovieSpesificCatalogueEntry
-import com.frozenproject.moviecatalogue.data.database.unit.movie.list.UnitSpecificMovieCatalogueEntry
-import com.frozenproject.moviecatalogue.data.network.APICatalogue
-import com.frozenproject.moviecatalogue.data.network.CatalogueNetworkDataSourceImpl
-import com.frozenproject.moviecatalogue.data.network.ConnectivityInterceptorImpl
-import com.frozenproject.moviecatalogue.ui.base.ScopeFragment
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import com.frozenproject.moviecatalogue.data.network.APICatalogueClient
+import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
+import com.frozenproject.moviecatalogue.data.network.NetworkState
+import com.frozenproject.moviecatalogue.data.repository.MovieCatalogueRepository
 import kotlinx.android.synthetic.main.fragment_movie.*
-import kotlinx.android.synthetic.main.item_list_catalogue_movie.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
-import org.kodein.di.generic.instance
 
-class MovieListFragment : ScopeFragment(), KodeinAware {
-    override val kodein by closestKodein()
-    private val viewModelFactory: MovieViewModelFactory by instance()
+class MovieListFragment : Fragment() {
 
     private lateinit var viewModel: MovieListViewModel
+    lateinit var movieRepository: MovieCatalogueRepository
+    private lateinit var mContext: Context
 
-    companion object{
+    companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
 
         fun newInstance(index: Int): MovieListFragment {
@@ -45,47 +37,73 @@ class MovieListFragment : ScopeFragment(), KodeinAware {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context.applicationContext
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_movie,container,false)
+        val root = inflater.inflate(R.layout.fragment_movie, container, false)
+
+        val apiService: APICatalogueInterface = APICatalogueClient.getClient()
+        movieRepository = MovieCatalogueRepository(apiService)
+        viewModel = getViewModel()
+
+
+        return root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(MovieListViewModel::class.java)
-        bindUI()
-    }
 
-    private fun bindUI() = launch(Dispatchers.Main) {
-        val movieCatalogueEntries = viewModel.movieEntries.await()
+        val movieCatalogueEntries = viewModel.movieEntries
+        val networkStateView = viewModel.networkState
+        val movieAdapter = MovieItemListAdapter(mContext)
 
-        movieCatalogueEntries.observe(this@MovieListFragment, Observer { movieEntries ->
+        val gridLayoutManager = GridLayoutManager(mContext, 3)
 
-            initRecyclerView(movieEntries.toMovieCatalogueItems())
-        })
-    }
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                val viewType = movieAdapter.getItemViewType(position)
+                return if (viewType == movieAdapter.movieViewType) 1
+                else 3
+            }
 
-    private fun initRecyclerView(items: List<MovieItem>) {
-        val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            addAll(items)
         }
 
+        rv_catalogue_movie.adapter = movieAdapter
+        rv_catalogue_movie.layoutManager = gridLayoutManager
         rv_catalogue_movie.setHasFixedSize(true)
-        rv_catalogue_movie.apply {
-            layoutManager = LinearLayoutManager(this@MovieListFragment.context, RecyclerView.VERTICAL, false)
-            adapter = groupAdapter
-        }
+
+        movieCatalogueEntries.observe(this, Observer {
+            movieAdapter.submitList(it)
+        })
+
+        networkStateView.observe(this, Observer {
+            progress_bar_movie.visibility =
+                if (viewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            txt_error_movie.visibility =
+                if (viewModel.listIsEmpty() && it == NetworkState.ERROR) View.VISIBLE else View.GONE
+
+            //Settings Network
+            if (!viewModel.listIsEmpty()) {
+                movieAdapter.setNetworkState(it)
+            }
+        })
 
     }
-}
 
-    private fun List<MovieSpesificCatalogueEntry>.toMovieCatalogueItems(): List<MovieItem> {
-        return this.map {
-            MovieItem(it)
-        }
+
+    private fun getViewModel(): MovieListViewModel {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return MovieListViewModel(movieRepository) as T
+            }
+        })[MovieListViewModel::class.java]
+    }
 }

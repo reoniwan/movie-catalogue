@@ -2,8 +2,9 @@
     <string name="app_name">
         <xliff:g id="id_app_name">DilemaXXI</xliff:g>
     </string>
-    <string name="genre">Genre</string>
-    <string name="releases">Release Date</string>
+    <string name="date">First Air Date</string>
+    <string name="release">Release Date</string>
+    <string name="revenue">Revenue</string>
     <string name="director">Director</string>
     <string name="like">Like</string>
     <string name="share">Share</string>
@@ -11,7 +12,7 @@
     <string name="title">Title</string>
     <string name="movie_title">Movie Title</string>
     <string name="director_name">Director Name</string>
-    <string name="detail_release">Detail Release</string>
+    <string name="detail_revenue">Detail Revenue</string>
     <string name="rating">Rating</string>
     <string name="detail_description">Detail Description</string>
     <string name="detail_genre">Detail Genre</string>
@@ -24,14 +25,15 @@
     <string name="trailer">Trailer</string>
     <string name="image_favorite">Image Favorite</string>
     <string name="image_rating">Image Rating</string>
-    <string name="studio_name">Studio Name</string>
-    <string name="studio">Studio</string>
+    <string name="budget_detail">Detail Budget</string>
+    <string name="budget">Budget</string>
     <string name="image_movie">Image Movie</string>
     <string name="image_tv_series">Image Tv Series</string>
     <string name="image_actor">Image Actor</string>
     <string name="actor">Actor</string>
     <string name="change_language_settings">Change Language Settings</string>
     <string name="background">Background</string>
+    <string name="connection_problem">Connection Problem!!</string>
 
 
 </resources>

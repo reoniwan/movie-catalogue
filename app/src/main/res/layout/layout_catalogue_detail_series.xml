@@ -94,13 +94,13 @@
             tools:text="Series Title" />
 
         <TextView
-            android:id="@+id/studio"
+            android:id="@+id/budget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/studio"
+            android:text="@string/budget"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -122,17 +122,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/studio"
-            tools:text="@string/studio_name" />
+            app:layout_constraintTop_toBottomOf="@+id/budget"
+            tools:text="@string/budget_detail" />
 
         <TextView
-            android:id="@+id/release"
+            android:id="@+id/revenue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-            android:text="@string/releases"
+            android:text="@string/revenue"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -142,7 +142,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_studio_name" />
 
         <TextView
-            android:id="@+id/txt_release_title_series"
+            android:id="@+id/revenue_series"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -153,26 +153,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/release"
-            tools:text="@string/detail_release" />
+            app:layout_constraintTop_toBottomOf="@+id/revenue"
+            tools:text="@string/detail_revenue" />
 
         <TextView
-            android:id="@+id/genre"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="@string/genre"
+            android:text="@string/date"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_release_title_series" />
+            app:layout_constraintTop_toBottomOf="@+id/revenue_series" />
 
         <TextView
-            android:id="@+id/txt_detail_genre_series"
+            android:id="@+id/date_series"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -184,8 +184,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/genre"
-            tools:text="@string/detail_genre" />
+            app:layout_constraintTop_toBottomOf="@+id/date"
+            tools:text="Detail Date" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

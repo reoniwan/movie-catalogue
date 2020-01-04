@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.ui.catalogue.series.SeriesFragment
+import com.frozenproject.moviecatalogue.ui.catalogue.series.SeriesListFragment
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.MovieListFragment
 
 class SectionsPagerAdapter(
@@ -26,7 +26,7 @@ class SectionsPagerAdapter(
         fragment = if (position == fragmentMovie) {
             MovieListFragment.newInstance(position)
         } else {
-            SeriesFragment.newInstance(position)
+            SeriesListFragment.newInstance(position)
         }
 
         return fragment

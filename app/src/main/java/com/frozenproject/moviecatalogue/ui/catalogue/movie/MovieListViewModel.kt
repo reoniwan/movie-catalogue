@@ -1,18 +1,33 @@
 package com.frozenproject.moviecatalogue.ui.catalogue.movie
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.frozenproject.moviecatalogue.data.repository.CatalogueRepository
-import com.frozenproject.moviecatalogue.internal.UnitSystem
-import com.frozenproject.moviecatalogue.internal.lazyDefferred
-import org.threeten.bp.LocalDate
+import com.frozenproject.moviecatalogue.data.network.NetworkState
+import com.frozenproject.moviecatalogue.data.repository.MovieCatalogueRepository
+import io.reactivex.disposables.CompositeDisposable
 
 class MovieListViewModel(
-    private val repository: CatalogueRepository
-
+    private val movieRepository: MovieCatalogueRepository
 ):ViewModel() {
 
-    val movieEntries by lazyDefferred {
-        repository.getMovieCatalogueList()
+    private val compositeDisposable = CompositeDisposable()
+
+    val movieEntries by lazy {
+        movieRepository.fetchLiveMoviePageList(compositeDisposable)
     }
 
+
+    val networkState: LiveData<NetworkState> by lazy{
+        movieRepository.getNetworkStateMovie()
+    }
+
+
+    fun listIsEmpty(): Boolean{
+        return movieEntries.value?.isEmpty() ?: true
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.dispose()
+    }
 }

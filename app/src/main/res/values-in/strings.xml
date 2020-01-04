@@ -2,8 +2,9 @@
     <string name="app_name">
         <xliff:g id="id_app_name">DilemaXXI</xliff:g>
     </string>
-    <string name="genre">Aliran</string>
-    <string name="releases">Tanggal Rilis</string>
+    <string name="date">Tanggal Tayang</string>
+    <string name="release">Tanggal Rilis</string>
+    <string name="revenue">Penghasilan</string>
     <string name="director">Sutradara</string>
     <string name="like">Suka</string>
     <string name="share">Bagikan</string>
@@ -11,7 +12,7 @@
     <string name="title">Judul</string>
     <string name="movie_title">Judul Film</string>
     <string name="director_name">Nama Sutradara</string>
-    <string name="detail_release">Detil Tanggal</string>
+    <string name="detail_revenue">Detail Penghasilan</string>
     <string name="rating">Rating</string>
     <string name="detail_description">Detil Deskripsi</string>
     <string name="detail_genre">Detil gambaran cerita</string>
@@ -19,19 +20,19 @@
     <string name="tv_series">SERIAL TV</string>
     <string name="movie">FILM</string>
 
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="series_title">Judul Serial</string>
     <string name="trailer">Trailer</string>
     <string name="image_favorite">Gambar Favorite</string>
     <string name="image_rating">Gambar Rating</string>
-    <string name="studio_name">Studio Name</string>
-    <string name="studio">Studio</string>
+    <string name="budget_detail">Detail Biaya</string>
+    <string name="budget">Biaya Pembuatan</string>
     <string name="image_movie">Gambar Movie</string>
     <string name="image_tv_series">Gambar Serial TV</string>
     <string name="image_actor">Gambar Actor</string>
     <string name="actor">Pemeran</string>
     <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
     <string name="background">Background</string>
+    <string name="connection_problem">Koneksi Bermasalah!!</string>
 
 </resources>
