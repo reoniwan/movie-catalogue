@@ -17,4 +17,10 @@ data class ResultSeries(
     var vote_count: Int = 0,
     var imageSeries: String = "",
     var ratingSeries: Double = 0.0
-):Parcelable
+):Parcelable{
+
+    fun fetchSeriesData(data: JSONObject){
+        val dateSeries = data.getString("first_air_date")
+    }
+
+}
