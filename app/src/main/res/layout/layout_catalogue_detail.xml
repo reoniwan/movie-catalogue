@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <include
             android:id="@+id/toolbar_detail"
             layout="@layout/app_bar_main"
@@ -19,13 +20,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ProgressBar
+            android:id="@+id/progress_bar_detail_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_error_movie_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/connection_problem"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/progress_bar_detail_movie"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <ImageView
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="310dp"
             android:background="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_detail"
-            android:contentDescription="@string/background" />
+            android:contentDescription="@string/background"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_detail" />
 
         <ImageView
             android:id="@+id/img_movie_detail"
@@ -95,13 +117,13 @@
             tools:text="@string/movie_title" />
 
         <TextView
-            android:id="@+id/director"
+            android:id="@+id/budget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/director"
+            android:text="@string/budget"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -112,7 +134,7 @@
             app:layout_goneMarginEnd="5dp" />
 
         <TextView
-            android:id="@+id/txt_director_name"
+            android:id="@+id/budget_movie"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -123,27 +145,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toBottomOf="@+id/director"
-            tools:text="@string/director_name" />
+            app:layout_constraintTop_toBottomOf="@+id/budget"
+            tools:text="Detail Budget" />
 
         <TextView
-            android:id="@+id/release"
+            android:id="@+id/revenue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-            android:text="@string/releases"
+            android:text="@string/revenue"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_director_name" />
+            app:layout_constraintTop_toBottomOf="@+id/budget_movie" />
 
         <TextView
-            android:id="@+id/txt_release_title"
+            android:id="@+id/revenue_movie"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -154,26 +176,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toBottomOf="@+id/release"
-            tools:text="@string/detail_release" />
+            app:layout_constraintTop_toBottomOf="@+id/revenue"
+            tools:text="@string/budget_detail" />
 
         <TextView
-            android:id="@+id/genre"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="@string/genre"
+            android:text="@string/release"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_release_title" />
+            app:layout_constraintTop_toBottomOf="@+id/revenue_movie" />
 
         <TextView
-            android:id="@+id/txt_detail_genre"
+            android:id="@+id/date_movie"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -185,8 +207,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toBottomOf="@+id/genre"
-            tools:text="@string/detail_genre" />
+            app:layout_constraintTop_toBottomOf="@+id/date"
+            tools:text="Detail Date" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
