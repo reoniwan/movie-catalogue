@@ -2,20 +2,15 @@
     <string name="app_name">
         <xliff:g id="id_app_name">DilemaXXI</xliff:g>
     </string>
-    <string name="date">Tanggal Tayang</string>
+    <string name="date">Tayang Perdana</string>
     <string name="release">Tanggal Rilis</string>
     <string name="revenue">Penghasilan</string>
-    <string name="director">Sutradara</string>
     <string name="like">Suka</string>
-    <string name="share">Bagikan</string>
     <string name="description">Gambaran Cerita</string>
     <string name="title">Judul</string>
     <string name="movie_title">Judul Film</string>
-    <string name="director_name">Nama Sutradara</string>
-    <string name="detail_revenue">Detail Penghasilan</string>
     <string name="rating">Rating</string>
     <string name="detail_description">Detil Deskripsi</string>
-    <string name="detail_genre">Detil gambaran cerita</string>
     <string name="img_movie">img_movie</string>
     <string name="tv_series">SERIAL TV</string>
     <string name="movie">FILM</string>
@@ -32,7 +27,9 @@
     <string name="image_actor">Gambar Actor</string>
     <string name="actor">Pemeran</string>
     <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
-    <string name="background">Background</string>
+    <string name="background">Latar</string>
     <string name="connection_problem">Koneksi Bermasalah!!</string>
+    <string name="episode">Jumlah Episode</string>
+    <string name="date_last">Akhir Tayang</string>
 
 </resources>

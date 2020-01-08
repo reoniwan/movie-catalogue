@@ -1,7 +1,7 @@
 package com.frozenproject.moviecatalogue.data.network
 
 
-enum class Status{
+enum class Status {
     RUNNING,
     SUCCESS,
     FAILED
@@ -9,7 +9,7 @@ enum class Status{
 
 class NetworkState(var status: Status, val msg: String) {
 
-    companion object{
+    companion object {
 
         val LOADED: NetworkState = NetworkState(Status.SUCCESS, "Success")
         val LOADING: NetworkState = NetworkState(Status.RUNNING, "Running")

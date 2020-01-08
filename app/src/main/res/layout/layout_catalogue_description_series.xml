@@ -9,10 +9,8 @@
     android:paddingEnd="5dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardview"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:foreground="?android:attr/selectableItemBackground"
         android:padding="8dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
@@ -21,7 +19,6 @@
         app:layout_constraintTop_toTopOf="@+id/guideline3">
 
         <ImageView
-            android:id="@+id/img_rating_series"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
@@ -42,7 +39,6 @@
         android:id="@+id/cardview2"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:foreground="?android:attr/selectableItemBackground"
         android:padding="8dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -50,7 +46,6 @@
         app:layout_constraintTop_toTopOf="@+id/cardview3">
 
         <ImageView
-            android:id="@+id/img_favorite_series"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
@@ -72,7 +67,6 @@
         android:id="@+id/cardview3"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -80,7 +74,6 @@
         app:layout_constraintTop_toTopOf="@+id/guideline3">
 
         <ImageView
-            android:id="@+id/img_actor"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"

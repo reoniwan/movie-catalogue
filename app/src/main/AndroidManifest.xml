@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.frozenproject.moviecatalogue">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -21,8 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.catalogue.movie.detail.MovieDetailActivity"/>
-        <activity android:name=".ui.catalogue.series.DetailSeriesActivity"/>
+        <activity android:name=".ui.catalogue.movie.detail.MovieDetailActivity" />
+        <activity android:name=".ui.catalogue.series.detail.DetailSeriesActivity" />
     </application>
 
 </manifest>

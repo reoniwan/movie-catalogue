@@ -5,17 +5,12 @@
     <string name="date">First Air Date</string>
     <string name="release">Release Date</string>
     <string name="revenue">Revenue</string>
-    <string name="director">Director</string>
     <string name="like">Like</string>
-    <string name="share">Share</string>
     <string name="description">Overview</string>
     <string name="title">Title</string>
     <string name="movie_title">Movie Title</string>
-    <string name="director_name">Director Name</string>
-    <string name="detail_revenue">Detail Revenue</string>
     <string name="rating">Rating</string>
     <string name="detail_description">Detail Description</string>
-    <string name="detail_genre">Detail Genre</string>
     <string name="img_movie">img_movie</string>
     <string name="tv_series">TV SERIES</string>
     <string name="movie">MOVIE</string>
@@ -34,6 +29,8 @@
     <string name="change_language_settings">Change Language Settings</string>
     <string name="background">Background</string>
     <string name="connection_problem">Connection Problem!!</string>
+    <string name="episode">Total Episodes</string>
+    <string name="date_last">Last Air Date</string>
 
 
 </resources>

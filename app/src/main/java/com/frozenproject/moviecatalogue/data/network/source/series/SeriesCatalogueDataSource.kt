@@ -1,74 +1,66 @@
-package com.frozenproject.moviecatalogue.data.network.source
+package com.frozenproject.moviecatalogue.data.network.source.series
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import com.frozenproject.moviecatalogue.data.db.ResultMovie
+import com.frozenproject.moviecatalogue.data.db.series.ResultSeries
 import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.FIRST_PAGE
 import com.frozenproject.moviecatalogue.data.network.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class MovieCatalogueDataSource(
+class SeriesCatalogueDataSource(
     private val apiService: APICatalogueInterface,
     private val compositeDisposable: CompositeDisposable
-): PageKeyedDataSource<Int, ResultMovie>()
-{
+) : PageKeyedDataSource<Int, ResultSeries>() {
     private var page = FIRST_PAGE
 
     val networkState: MutableLiveData<NetworkState> = MutableLiveData()
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, ResultMovie>
+        callback: LoadInitialCallback<Int, ResultSeries>
     ) {
         networkState.postValue(NetworkState.LOADING)
 
         compositeDisposable.add(
-            apiService.getCatalogueMovie(page)
+            apiService.getCatalogueSeries(page)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                    {
-                        callback.onResult(it.resultsMovie, null, page+1)
+                    { seriesEntry ->
+                        callback.onResult(seriesEntry.resultsSeries, null, page + 1)
                         networkState.postValue(NetworkState.LOADED)
                     },
-                    {
+                    { err ->
                         networkState.postValue(NetworkState.ERROR)
-                        Log.e("MovieDataSource", it.message!!)
+                        Log.e("SeriesDataSource", err.message!!)
                     }
+
                 )
         )
 
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, ResultMovie>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, ResultSeries>) {
         networkState.postValue(NetworkState.LOADING)
 
         compositeDisposable.add(
-            apiService.getCatalogueMovie(params.key)
+            apiService.getCatalogueSeries(params.key)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                    {
-                        if (it.totalPages >= params.key) {
-                            callback.onResult(it.resultsMovie, params.key+1)
-                            networkState.postValue(NetworkState.LOADED)
-                        }
-                        else
-                        {
-                            networkState.postValue(NetworkState.END_LIST)
-                        }
+                    { seriesEntry ->
+                        callback.onResult(seriesEntry.resultsSeries, params.key + 1)
+                        networkState.postValue(NetworkState.LOADED)
                     },
-                    {
+                    { err ->
                         networkState.postValue(NetworkState.ERROR)
-                        Log.e("MovieDataSource", it.message!!)
-
+                        Log.e("SeriesDataSource", err.message!!)
                     }
                 )
         )
-
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, ResultMovie>) {}
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, ResultSeries>) {}
 
 }

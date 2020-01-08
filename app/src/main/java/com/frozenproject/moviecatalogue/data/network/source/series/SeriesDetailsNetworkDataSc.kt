@@ -1,48 +1,46 @@
-package com.frozenproject.moviecatalogue.data.network.source
+package com.frozenproject.moviecatalogue.data.network.source.series
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.frozenproject.moviecatalogue.data.db.MovieDetail
+import com.frozenproject.moviecatalogue.data.db.series.SeriesDetail
 import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class MovieDetailsNetworkDataSc(
+class SeriesDetailsNetworkDataSc(
     private val apiService: APICatalogueInterface,
-    private val compositeDisposable: CompositeDisposable) {
-
+    private val compositeDisposable: CompositeDisposable
+) {
     private val _networkState = MutableLiveData<NetworkState>()
     val networkState: LiveData<NetworkState>
         get() = _networkState
 
-    private val _downloadedMovieDetailsResponse = MutableLiveData<MovieDetail>()
-    val downloadedMovieResponse: LiveData<MovieDetail>
-        get() = _downloadedMovieDetailsResponse
+    private val _downloadedSeriesDetailsResponse = MutableLiveData<SeriesDetail>()
+    val downloadedSeriesResponse: LiveData<SeriesDetail>
+        get() = _downloadedSeriesDetailsResponse
 
-    fun fetchMovieDetails(movieId: Int){
+    fun fetchSeriesDetails(seriesId: Int) {
         _networkState.postValue(NetworkState.LOADING)
 
         try {
             compositeDisposable.add(
-                apiService.getMovieDetails(movieId)
+                apiService.getSeriesDetails(seriesId)
                     .subscribeOn(Schedulers.io())
                     .subscribe(
                         {
-                        _downloadedMovieDetailsResponse.postValue(it)
+                            _downloadedSeriesDetailsResponse.postValue(it)
                             _networkState.postValue(NetworkState.LOADED)
                         },
                         {
-                         _networkState.postValue(NetworkState.ERROR)
-                            Log.e("MovieDetailsDataSource", it.message!!)
+                            _networkState.postValue(NetworkState.ERROR)
+                            Log.e("SeriesDetailsDataSource", it.message!!)
                         }
                     )
             )
-        }
-        catch(e: Exception)
-        {
-            Log.e("MovieDetailsDataSource", e.message!!)
+        } catch (e: Exception) {
+            Log.e("SeriesDetailsDataSource", e.message!!)
         }
     }
 }

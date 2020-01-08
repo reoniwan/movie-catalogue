@@ -42,7 +42,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/background"
+            android:id="@+id/background_blue"
             android:layout_width="match_parent"
             android:layout_height="310dp"
             android:background="@color/colorPrimary"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#66000000"
-            android:drawableStart="@drawable/ic_star_black_24dp"
+            android:drawableStart="@drawable/ic_star_gold"
             android:elevation="2dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@android:color/white"
@@ -107,7 +107,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="5dp"
             android:ellipsize="end"
-            android:maxLines="2"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -4,25 +4,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.frozenproject.moviecatalogue.data.db.MovieDetail
-import com.frozenproject.moviecatalogue.data.db.ResultMovie
+import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
+import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.NetworkState
 import com.frozenproject.moviecatalogue.data.network.POST_PAGE
-import com.frozenproject.moviecatalogue.data.network.source.MovieCatalogueDataFactory
-import com.frozenproject.moviecatalogue.data.network.source.MovieCatalogueDataSource
-import com.frozenproject.moviecatalogue.data.network.source.MovieDetailsNetworkDataSc
+import com.frozenproject.moviecatalogue.data.network.source.movie.MovieCatalogueDataFactory
+import com.frozenproject.moviecatalogue.data.network.source.movie.MovieCatalogueDataSource
+import com.frozenproject.moviecatalogue.data.network.source.movie.MovieDetailsNetworkDataSc
 import io.reactivex.disposables.CompositeDisposable
 
 
 class MovieCatalogueRepository(
     private val apiService: APICatalogueInterface
-){
+) {
 
-    lateinit var moviePage: LiveData<PagedList<ResultMovie>>
-    lateinit var moviesDataSourceFactory: MovieCatalogueDataFactory
+    private lateinit var moviePage: LiveData<PagedList<ResultMovie>>
+    private lateinit var moviesDataSourceFactory: MovieCatalogueDataFactory
 
-    lateinit var movieDetails: MovieDetailsNetworkDataSc
+    private lateinit var movieDetails: MovieDetailsNetworkDataSc
 
     fun fetchLiveMoviePageList(compositeDisposable: CompositeDisposable): LiveData<PagedList<ResultMovie>> {
         moviesDataSourceFactory =
@@ -42,9 +42,16 @@ class MovieCatalogueRepository(
         return moviePage
     }
 
-    fun fetchMovieDetails(compositeDisposable: CompositeDisposable, movieId: Int): LiveData<MovieDetail>{
+    fun fetchMovieDetails(
+        compositeDisposable: CompositeDisposable,
+        movieId: Int
+    ): LiveData<MovieDetail> {
 
-        movieDetails = MovieDetailsNetworkDataSc(apiService, compositeDisposable)
+        movieDetails =
+            MovieDetailsNetworkDataSc(
+                apiService,
+                compositeDisposable
+            )
         movieDetails.fetchMovieDetails(movieId)
 
         return movieDetails.downloadedMovieResponse
@@ -57,10 +64,9 @@ class MovieCatalogueRepository(
         )
     }
 
-    fun getMovieDetailsNetworkState(): LiveData<NetworkState>{
+    fun getMovieDetailsNetworkState(): LiveData<NetworkState> {
         return movieDetails.networkState
     }
-
 
 
 }

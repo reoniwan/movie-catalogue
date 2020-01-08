@@ -1,7 +1,7 @@
 package com.frozenproject.moviecatalogue.callback
 
 import androidx.recyclerview.widget.DiffUtil
-import com.frozenproject.moviecatalogue.data.db.ResultMovie
+import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 
 
 class MovieCallback : DiffUtil.ItemCallback<ResultMovie>() {

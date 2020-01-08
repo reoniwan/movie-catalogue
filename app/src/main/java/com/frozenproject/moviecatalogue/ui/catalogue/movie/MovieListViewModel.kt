@@ -8,7 +8,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 class MovieListViewModel(
     private val movieRepository: MovieCatalogueRepository
-):ViewModel() {
+) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -16,13 +16,11 @@ class MovieListViewModel(
         movieRepository.fetchLiveMoviePageList(compositeDisposable)
     }
 
-
-    val networkState: LiveData<NetworkState> by lazy{
+    val networkState: LiveData<NetworkState> by lazy {
         movieRepository.getNetworkStateMovie()
     }
 
-
-    fun listIsEmpty(): Boolean{
+    fun listIsEmpty(): Boolean {
         return movieEntries.value?.isEmpty() ?: true
     }
 

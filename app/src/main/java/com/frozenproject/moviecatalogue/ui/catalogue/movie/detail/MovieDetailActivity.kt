@@ -9,12 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.data.db.MovieDetail
-import com.frozenproject.moviecatalogue.data.network.APICatalogueClient
-import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
-import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.data.network.POSTER_BASE_URL
+import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
+import com.frozenproject.moviecatalogue.data.network.*
 import com.frozenproject.moviecatalogue.data.repository.MovieCatalogueRepository
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.layout_catalogue_description.*
 import kotlinx.android.synthetic.main.layout_catalogue_detail.*
 import java.text.NumberFormat
@@ -28,8 +26,16 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_catalogue_detail)
+        //Appbar
+        setSupportActionBar(toolbar)
 
-        val movieId: Int = intent.getIntExtra("id", 1)
+        val actionBar = supportActionBar
+        actionBar?.title = ""
+
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        //Data Movie
+        val movieId: Int = intent.getIntExtra(ID, CATALOGUE_ID)
 
         val apiService: APICatalogueInterface = APICatalogueClient.getClient()
 
@@ -42,14 +48,16 @@ class MovieDetailActivity : AppCompatActivity() {
         })
 
         viewModel.networkState.observe(this, Observer {
-            progress_bar_detail_movie.visibility = if(it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            txt_error_movie_detail.visibility = if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
+            progress_bar_detail_movie.visibility =
+                if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            txt_error_movie_detail.visibility =
+                if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
         })
     }
 
     private fun getViewModel(movieId: Int): MovieDetailViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T:ViewModel?>create(modelClass: Class<T>): T {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
                 return MovieDetailViewModel(movieRepository, movieId) as T
             }
@@ -70,6 +78,10 @@ class MovieDetailActivity : AppCompatActivity() {
         Glide.with(this)
             .load(moviePosterUrl)
             .into(img_movie_detail)
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }
