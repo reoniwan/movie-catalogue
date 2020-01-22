@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
 import com.frozenproject.moviecatalogue.data.network.*
-import com.frozenproject.moviecatalogue.data.repository.MovieCatalogueRepository
+import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
+import com.frozenproject.moviecatalogue.utils.Injection
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.layout_catalogue_description.*
 import kotlinx.android.synthetic.main.layout_catalogue_detail.*
@@ -21,7 +22,6 @@ import java.util.*
 class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MovieDetailViewModel
-    private lateinit var movieRepository: MovieCatalogueRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +37,8 @@ class MovieDetailActivity : AppCompatActivity() {
         //Data Movie
         val movieId: Int = intent.getIntExtra(ID, CATALOGUE_ID)
 
-        val apiService: APICatalogueInterface = APICatalogueClient.getClient()
-
-        movieRepository = MovieCatalogueRepository(apiService)
-
-        viewModel = getViewModel(movieId)
+        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(this))
+            .get(MovieDetailViewModel::class.java)
 
         viewModel.movieDetails.observe(this, Observer {
             bindUI(it)
@@ -53,15 +50,6 @@ class MovieDetailActivity : AppCompatActivity() {
             txt_error_movie_detail.visibility =
                 if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
         })
-    }
-
-    private fun getViewModel(movieId: Int): MovieDetailViewModel {
-        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return MovieDetailViewModel(movieRepository, movieId) as T
-            }
-        })[MovieDetailViewModel::class.java]
     }
 
     private fun bindUI(it: MovieDetail?) {

@@ -15,13 +15,14 @@ import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.network.APICatalogueClient
 import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.data.repository.MovieCatalogueRepository
+import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
+import com.frozenproject.moviecatalogue.data.repository.remote.MovieRemoteRepository
+import com.frozenproject.moviecatalogue.utils.Injection
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 class MovieListFragment : Fragment() {
 
     private lateinit var viewModel: MovieListViewModel
-    lateinit var movieRepository: MovieCatalogueRepository
     private lateinit var mContext: Context
 
     companion object {
@@ -49,10 +50,8 @@ class MovieListFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_movie, container, false)
 
-        val apiService: APICatalogueInterface = APICatalogueClient.getClient()
-        movieRepository = MovieCatalogueRepository(apiService)
-        viewModel = getViewModel()
-
+        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(mContext))
+            .get(MovieListViewModel::class.java)
 
         return root
     }
@@ -97,13 +96,4 @@ class MovieListFragment : Fragment() {
 
     }
 
-
-    private fun getViewModel(): MovieListViewModel {
-        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return MovieListViewModel(movieRepository) as T
-            }
-        })[MovieListViewModel::class.java]
-    }
 }

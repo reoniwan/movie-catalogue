@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="2dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:elevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img_backdrop_path"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:scaleType="centerCrop"
+                tools:src="@color/colorPrimaryDark" />
+
+            <ImageView
+                android:id="@+id/img_movieFav"
+                android:layout_width="120dp"
+                android:layout_height="200dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="26dp"
+                android:background="@drawable/shadow_rect"
+                tools:src="@drawable/ic_launcher_foreground" />
+
+            <TextView
+                android:id="@+id/title_favourite_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_backdrop_path"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="14dp"
+                android:layout_toEndOf="@+id/img_movieFav"
+                android:textSize="18sp"
+                tools:text="Star Wars: The Rise of Skywalker" />
+
+            <TextView
+                android:id="@+id/txt_release_favourite_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_favourite_movie"
+                android:layout_marginTop="27dp"
+                android:layout_toEndOf="@+id/img_movieFav"
+                android:gravity="end"
+                android:textSize="18sp"
+                tools:text="2019-08-01" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

@@ -31,6 +31,7 @@
     <string name="connection_problem">Connection Problem!!</string>
     <string name="episode">Total Episodes</string>
     <string name="date_last">Last Air Date</string>
+    <string name="empty_favourite">Empty Favorite</string>
 
 
 </resources>

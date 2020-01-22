@@ -31,5 +31,6 @@
     <string name="connection_problem">Koneksi Bermasalah!!</string>
     <string name="episode">Jumlah Episode</string>
     <string name="date_last">Akhir Tayang</string>
+    <string name="empty_favourite">Empty Favorite</string>
 
 </resources>

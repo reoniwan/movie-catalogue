@@ -1,4 +1,4 @@
-package com.frozenproject.moviecatalogue.data.repository
+package com.frozenproject.moviecatalogue.data.repository.remote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -14,11 +14,9 @@ import com.frozenproject.moviecatalogue.data.network.source.movie.MovieCatalogue
 import com.frozenproject.moviecatalogue.data.network.source.movie.MovieDetailsNetworkDataSc
 import io.reactivex.disposables.CompositeDisposable
 
-
-class MovieCatalogueRepository(
-    private val apiService: APICatalogueInterface
+class MovieRemoteRepository(
+    val apiService: APICatalogueInterface
 ) {
-
     private lateinit var moviePage: LiveData<PagedList<ResultMovie>>
     private lateinit var moviesDataSourceFactory: MovieCatalogueDataFactory
 
@@ -67,6 +65,4 @@ class MovieCatalogueRepository(
     fun getMovieDetailsNetworkState(): LiveData<NetworkState> {
         return movieDetails.networkState
     }
-
-
 }
