@@ -6,10 +6,8 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
-@Entity(tableName = "favorite_movie")
+
 data class ResultMovie(
-    @PrimaryKey
     @SerializedName("id")
     val idMovie: Int,
     @SerializedName("overview")
@@ -21,5 +19,9 @@ data class ResultMovie(
     @SerializedName("title")
     val title: String,
     @SerializedName("vote_average")
-    val rating: Double
-): Parcelable
+    val rating: Double,
+    @SerializedName("vote_count")
+    val vote: Int,
+    @SerializedName("popularity")
+    val popularity: Double
+)

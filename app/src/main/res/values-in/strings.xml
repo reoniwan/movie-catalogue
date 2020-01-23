@@ -4,7 +4,7 @@
     </string>
     <string name="date">Tayang Perdana</string>
     <string name="release">Tanggal Rilis</string>
-    <string name="revenue">Penghasilan</string>
+    <string name="vote_count">Jumlah Voting</string>
     <string name="like">Suka</string>
     <string name="description">Gambaran Cerita</string>
     <string name="title">Judul</string>
@@ -21,7 +21,7 @@
     <string name="image_favorite">Gambar Favorite</string>
     <string name="image_rating">Gambar Rating</string>
     <string name="budget_detail">Detail Biaya</string>
-    <string name="budget">Biaya Pembuatan</string>
+    <string name="popularity">Popularitas</string>
     <string name="image_movie">Gambar Movie</string>
     <string name="image_tv_series">Gambar Serial TV</string>
     <string name="image_actor">Gambar Actor</string>

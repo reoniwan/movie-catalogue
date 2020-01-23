@@ -18,9 +18,9 @@ interface TMDBDataSource {
 
     fun getNetworkStateDetail(): LiveData<NetworkState>
 
-    fun getFavoriteMovies(): DataSource.Factory<Int, ResultMovie>
+    fun getFavoriteMovies(id: Int): LiveData<MovieDetail>
 
-    fun unFavoriteMovie(data: ResultMovie)
+    fun unFavoriteMovie(data: MovieDetail)
 
-    fun addToFavorite(data: ResultMovie)
+    fun addToFavorite(data: MovieDetail)
 }

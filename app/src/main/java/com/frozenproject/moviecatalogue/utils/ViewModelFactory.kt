@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.frozenproject.moviecatalogue.data.network.CATALOGUE_ID
 import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.MovieListViewModel
+import com.frozenproject.moviecatalogue.ui.catalogue.movie.detail.MovieDetailActivity
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.detail.MovieDetailViewModel
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.favorite.MovieFavoriteViewModel
 import java.lang.IllegalArgumentException
@@ -19,7 +20,7 @@ class ViewModelFactory constructor(
                 isAssignableFrom(MovieListViewModel::class.java) ->
                     MovieListViewModel(repository)
                 isAssignableFrom(MovieDetailViewModel::class.java) ->
-                    MovieDetailViewModel(repository, CATALOGUE_ID)
+                    MovieDetailViewModel(repository, MovieDetailActivity.movieId)
                 isAssignableFrom(MovieFavoriteViewModel::class.java) ->
                     MovieFavoriteViewModel(repository)
                 else ->

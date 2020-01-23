@@ -45,13 +45,16 @@
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/cardview3">
 
-        <ImageView
+        <ToggleButton
+            android:id="@+id/toggle_favorite"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/image_favorite"
-            android:src="@drawable/ic_favorite_border_black_24dp" />
+            android:textOn=""
+            android:textOff=""
+            android:background="@drawable/ic_favorite_border_black_24dp"/>
 
         <TextView
             android:layout_width="match_parent"

@@ -65,6 +65,7 @@ class MovieListFragment : Fragment() {
 
         val gridLayoutManager = GridLayoutManager(mContext, 3)
 
+
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 val viewType = movieAdapter.getItemViewType(position)

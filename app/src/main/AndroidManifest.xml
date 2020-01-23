@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".ui.catalogue.movie.detail.MovieDetailActivity" />
         <activity android:name=".ui.catalogue.series.detail.DetailSeriesActivity" />
+        <activity android:name=".FavoriteActivity"/>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
+import com.frozenproject.moviecatalogue.FavoriteActivity
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.ui.adapter.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,6 +29,11 @@ class MainActivity : AppCompatActivity() {
         toolbar.setLogo(R.drawable.ic_video_library_white_24dp)
 
         supportActionBar?.elevation = 0f
+
+        fab.setOnClickListener {
+            val intent = Intent(this, FavoriteActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

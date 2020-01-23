@@ -114,13 +114,13 @@
             tools:text="Series Title" />
 
         <TextView
-            android:id="@+id/episode"
+            android:id="@+id/vote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/episode"
+            android:text="@string/vote_count"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -131,7 +131,7 @@
             app:layout_goneMarginEnd="5dp" />
 
         <TextView
-            android:id="@+id/txt_episode"
+            android:id="@+id/txt_vote_count_series"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -142,27 +142,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/episode"
-            tools:text="Total" />
+            app:layout_constraintTop_toBottomOf="@+id/vote"
+            tools:text="vote" />
 
         <TextView
-            android:id="@+id/first_air_date"
+            android:id="@+id/title_popularity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-            android:text="@string/date"
+            android:text="@string/popularity"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_episode" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_vote_count_series" />
 
         <TextView
-            android:id="@+id/txt_first_air_date"
+            android:id="@+id/txt_popularity_series"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -173,8 +173,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/first_air_date"
-            tools:text="Detail" />
+            app:layout_constraintTop_toBottomOf="@+id/title_popularity"
+            tools:text="Detail Popularity" />
 
         <TextView
             android:id="@+id/date"
@@ -182,14 +182,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="@string/date_last"
+            android:text="@string/date"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_first_air_date" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_popularity_series" />
 
         <TextView
             android:id="@+id/txt_last_air_date"
