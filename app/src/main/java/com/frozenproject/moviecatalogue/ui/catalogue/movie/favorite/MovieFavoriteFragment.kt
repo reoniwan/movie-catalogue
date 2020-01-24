@@ -9,20 +9,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
-import com.frozenproject.moviecatalogue.data.network.CATALOGUE_ID
-import com.frozenproject.moviecatalogue.data.network.ID
-import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
 import com.frozenproject.moviecatalogue.databinding.FragmentFavouriteMovieBinding
+import com.frozenproject.moviecatalogue.ui.catalogue.movie.MovieAdapter
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.detail.MovieDetailActivity
 import com.frozenproject.moviecatalogue.utils.Injection
-import kotlinx.android.synthetic.main.fragment_favourite_movie.*
 
 class MovieFavoriteFragment : Fragment() {
 
@@ -39,13 +34,14 @@ class MovieFavoriteFragment : Fragment() {
         }
     }
 
-    private val adapterMovie: MovieFavoriteAdapter by lazy {
-        MovieFavoriteAdapter{ goToDetailsMovies(it) }
+    private val adapterMovie: MovieAdapter by lazy {
+        MovieAdapter { goToDetailsMovies(it)
+        }
     }
 
-    private fun goToDetailsMovies(movies: ResultMovie) {
-        val i = Intent(mContext, MovieFavoriteAdapter::class.java)
-        i.putExtra(MovieDetailActivity.EXTRA_MOVIE, movies)
+    private fun goToDetailsMovies(it: ResultMovie) {
+        val i = Intent(activity, MovieDetailActivity::class.java)
+        i.putExtra(MovieDetailActivity.EXTRA_MOVIE, it)
         i.putExtra(MovieDetailActivity.IS_FAVORITE, true)
     }
 

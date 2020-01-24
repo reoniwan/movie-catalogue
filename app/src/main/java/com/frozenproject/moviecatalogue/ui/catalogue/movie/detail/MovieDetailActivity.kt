@@ -1,6 +1,7 @@
 package com.frozenproject.moviecatalogue.ui.catalogue.movie.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.layout_catalogue_detail.*
 import java.text.NumberFormat
 import java.util.*
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
+import com.frozenproject.moviecatalogue.ui.catalogue.movie.MovieListFragment
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -64,7 +66,7 @@ class MovieDetailActivity : AppCompatActivity() {
             }else{
                 toggle_favorite.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
                 viewModel.addToFavorite(data)
-                Toast.makeText(this, "Delete Favorite", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Add Favorite", Toast.LENGTH_SHORT).show()
             }
         }
     }
