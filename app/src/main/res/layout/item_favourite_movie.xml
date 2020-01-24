@@ -1,66 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="2dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_favorite_movie"
+    <data>
+        <variable
+            name="model"
+            type="com.frozenproject.moviecatalogue.data.db.movie.ResultMovie" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:cardUseCompatPadding="true"
-        android:elevation="5dp">
+        android:layout_height="match_parent"
+        android:padding="2dp">
 
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_favorite_movie"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="250dp"
+            android:elevation="5dp"
+            app:cardUseCompatPadding="true">
 
-            <ImageView
-                android:id="@+id/img_backdrop_path"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:scaleType="centerCrop"
-                tools:src="@color/colorPrimaryDark" />
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/img_movieFav"
-                android:layout_width="120dp"
-                android:layout_height="200dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="26dp"
-                android:background="@drawable/shadow_rect"
-                tools:src="@drawable/ic_launcher_foreground" />
+                <ImageView
+                    android:id="@+id/img_backdrop_path"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:scaleType="centerCrop"
+                    app:img_url="@{model.backdrop_path}"
+                    tools:src="@color/colorPrimaryDark" />
 
-            <TextView
-                android:id="@+id/title_favourite_movie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/img_backdrop_path"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="14dp"
-                android:layout_toEndOf="@+id/img_movieFav"
-                android:textSize="18sp"
-                tools:text="Star Wars: The Rise of Skywalker" />
+                <ImageView
+                    android:id="@+id/img_movieFav"
+                    android:layout_width="120dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="26dp"
+                    android:background="@drawable/shadow_rect"
+                    app:img_url="@{model.imageMovie}"
+                    tools:src="@drawable/ic_launcher_foreground" />
 
-            <TextView
-                android:id="@+id/txt_release_favourite_movie"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title_favourite_movie"
-                android:layout_marginTop="27dp"
-                android:layout_toEndOf="@+id/img_movieFav"
-                android:gravity="end"
-                android:textSize="18sp"
-                tools:text="2019-08-01" />
+                <TextView
+                    android:id="@+id/title_favourite_movie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_backdrop_path"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_toEndOf="@+id/img_movieFav"
+                    android:textSize="18sp"
+                    android:text="@{model.title}"
+                    tools:text="Star Wars: The Rise of Skywalker" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/txt_release_favourite_movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_favourite_movie"
+                    android:layout_marginTop="27dp"
+                    android:layout_toEndOf="@+id/img_movieFav"
+                    android:gravity="end"
+                    android:textSize="18sp"
+                    android:text="@{model.releaseDate}"
+                    tools:text="2019-08-01" />
 
-    </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
-</FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+</layout>

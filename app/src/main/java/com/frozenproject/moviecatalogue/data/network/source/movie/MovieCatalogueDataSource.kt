@@ -7,13 +7,15 @@ import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.FIRST_PAGE
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.utils.EspressoIdlingResource
+import com.frozenproject.moviecatalogue.data.network.response.MovieCatalogueResponse
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MovieCatalogueDataSource(
-    private val apiService: APICatalogueInterface,
-    private val compositeDisposable: CompositeDisposable
+    private val apiService: APICatalogueInterface
 ) : PageKeyedDataSource<Int, ResultMovie>() {
     private var page = FIRST_PAGE
 
@@ -24,50 +26,56 @@ class MovieCatalogueDataSource(
         callback: LoadInitialCallback<Int, ResultMovie>
     ) {
         networkState.postValue(NetworkState.LOADING)
-        EspressoIdlingResource.increment()
 
-        compositeDisposable.add(
-            apiService.getCatalogueMovie(page)
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                    {
-                        EspressoIdlingResource.decrement()
-                        callback.onResult(it.resultsMovie, null, page + 1)
-                        networkState.postValue(NetworkState.LOADED)
-                    },
-                    {
+            apiService.getCatalogueMovie(page = 1).enqueue(
+                object : Callback<MovieCatalogueResponse>{
+                    override fun onFailure(call: Call<MovieCatalogueResponse>?, t: Throwable) {
                         networkState.postValue(NetworkState.ERROR)
-                        Log.e("MovieDataSource", it.message!!)
                     }
-                )
-        )
+
+                    override fun onResponse(
+                        call: Call<MovieCatalogueResponse>?,
+                        response: Response<MovieCatalogueResponse>
+                    ) {
+                        if (response.isSuccessful){
+                            val data = response.body()?.resultsMovie ?: emptyList()
+                            callback.onResult(data, null, 2)
+                        }else{
+                            networkState.postValue(NetworkState.ERROR)
+                        }
+                    }
+
+                }
+            )
+
+
 
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, ResultMovie>) {
         networkState.postValue(NetworkState.LOADING)
-        EspressoIdlingResource.increment()
 
-        compositeDisposable.add(
-            apiService.getCatalogueMovie(params.key)
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                    {
-                        EspressoIdlingResource.decrement()
-                        if (it.totalPages >= params.key) {
-                            callback.onResult(it.resultsMovie, params.key + 1)
-                            networkState.postValue(NetworkState.LOADED)
-                        } else {
-                            networkState.postValue(NetworkState.END_LIST)
-                        }
-                    },
-                    {
+            apiService.getCatalogueMovie(page = params.key).enqueue(
+                object : Callback<MovieCatalogueResponse>{
+                    override fun onFailure(call: Call<MovieCatalogueResponse>?, t: Throwable) {
                         networkState.postValue(NetworkState.ERROR)
-                        Log.e("MovieDataSource", it.message!!)
-
                     }
-                )
-        )
+
+                    override fun onResponse(
+                        call: Call<MovieCatalogueResponse>,
+                        response: Response<MovieCatalogueResponse>
+                    ) {
+                        if (response.isSuccessful){
+                            val data = response.body()?.resultsMovie ?: emptyList()
+                            callback.onResult(data, params.key + 1)
+                        }else{
+                            networkState.postValue(NetworkState.ERROR)
+                        }
+                    }
+
+                }
+            )
+
 
     }
 

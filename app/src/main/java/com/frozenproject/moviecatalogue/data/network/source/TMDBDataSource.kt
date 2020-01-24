@@ -3,24 +3,17 @@ package com.frozenproject.moviecatalogue.data.network.source
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.paging.PagedList
-import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
 interface TMDBDataSource {
 
-    fun getAllMovies(compositeDisposable: CompositeDisposable): LiveData<PagedList<ResultMovie>>
+    fun getAllMovies(): LiveData<PagedList<ResultMovie>>
 
-    fun getDetailMovies(compositeDisposable: CompositeDisposable, movieId: Int): LiveData<MovieDetail>
+    fun getFavoriteMovies(): DataSource.Factory<Int, ResultMovie>
 
-    fun getNetworkState():LiveData<NetworkState>
+    fun unFavoriteMovie(data: ResultMovie)
 
-    fun getNetworkStateDetail(): LiveData<NetworkState>
-
-    fun getFavoriteMovies(id: Int): LiveData<MovieDetail>
-
-    fun unFavoriteMovie(data: MovieDetail)
-
-    fun addToFavorite(data: MovieDetail)
+    fun addToFavorite(data: ResultMovie)
 }

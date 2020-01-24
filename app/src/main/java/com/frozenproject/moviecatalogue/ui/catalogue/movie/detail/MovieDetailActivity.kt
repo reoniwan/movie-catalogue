@@ -3,25 +3,21 @@ package com.frozenproject.moviecatalogue.ui.catalogue.movie.detail
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
-import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.*
-import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
+import com.frozenproject.moviecatalogue.databinding.LayoutCatalogueDetailBinding
 import com.frozenproject.moviecatalogue.utils.Injection
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.layout_catalogue_description.*
 import kotlinx.android.synthetic.main.layout_catalogue_detail.*
 import java.text.NumberFormat
 import java.util.*
+import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -30,15 +26,17 @@ class MovieDetailActivity : AppCompatActivity() {
             .get(MovieDetailViewModel::class.java)
     }
 
-    companion object{
-        var movieId: Int = 0
+    companion object {
         const val EXTRA_MOVIE = "extra_movie"
         const val IS_FAVORITE = "favorite"
     }
 
+    private lateinit var binding: LayoutCatalogueDetailBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_catalogue_detail)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.layout_catalogue_detail)
         //Appbar
         setSupportActionBar(toolbar)
 
@@ -49,21 +47,13 @@ class MovieDetailActivity : AppCompatActivity() {
 
         //Data Movie
         val isFavorite = intent.getBooleanExtra(IS_FAVORITE, false)
-        val data = intent.getParcelableExtra<MovieDetail>(EXTRA_MOVIE)
-        movieId = intent.getIntExtra(ID, CATALOGUE_ID)
+        val data = intent.getParcelableExtra<ResultMovie>(EXTRA_MOVIE)
 
         viewModel.setData(data)
 
         viewModel.detail.observe(this, Observer {
-            bindUI(it)
+            binding.model = it
 
-        })
-
-        viewModel.networkState.observe(this, Observer {
-            progress_bar_detail_movie.visibility =
-                if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            txt_error_movie_detail.visibility =
-                if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
         })
 
         toggle_favorite.setOnClickListener {
@@ -77,22 +67,6 @@ class MovieDetailActivity : AppCompatActivity() {
                 Toast.makeText(this, "Delete Favorite", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun bindUI(it: MovieDetail) {
-        txt_title_movie_detail.text = it.title
-        date_movie.text = it.releaseDate
-        txt_description.text = it.overview
-        txt_rating_detail.text = it.rating.toString()
-
-        val formatCurrency = NumberFormat.getCurrencyInstance(Locale.US)
-        budget_movie.text = formatCurrency.format(it.budget)
-        revenue_movie.text = formatCurrency.format(it.revenue)
-
-        val moviePosterUrl = POSTER_BASE_URL + it.posterPath
-        Glide.with(this)
-            .load(moviePosterUrl)
-            .into(img_movie_detail)
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.frozenproject.moviecatalogue.data.db.CatalogueDatabase
 import com.frozenproject.moviecatalogue.data.db.LocalRepository
 import com.frozenproject.moviecatalogue.data.network.APICatalogueClient
+import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
 import com.frozenproject.moviecatalogue.data.repository.remote.MovieRemoteRepository
 import java.util.concurrent.Executors
@@ -17,7 +18,7 @@ object Injection {
     }
 
     private fun provideRemote(): MovieRemoteRepository{
-        return MovieRemoteRepository(APICatalogueClient.getClient())
+        return MovieRemoteRepository(APICatalogueInterface.create())
     }
 
     private fun provideTMDBRepository(context: Context): MovieCatalogueRepository {

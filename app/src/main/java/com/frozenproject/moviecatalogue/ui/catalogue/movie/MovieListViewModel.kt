@@ -7,25 +7,8 @@ import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueR
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieListViewModel(
-    private val movieRepository: MovieCatalogueRepository
+    movieRepository: MovieCatalogueRepository
 ) : ViewModel() {
 
-    private val compositeDisposable = CompositeDisposable()
-
-    val movieEntries by lazy {
-        movieRepository.getAllMovies(compositeDisposable)
-    }
-
-    val networkState: LiveData<NetworkState> by lazy {
-        movieRepository.getNetworkState()
-    }
-
-    fun listIsEmpty(): Boolean {
-        return movieEntries.value?.isEmpty() ?: true
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.dispose()
-    }
+    val movieList = movieRepository.getAllMovies()
 }

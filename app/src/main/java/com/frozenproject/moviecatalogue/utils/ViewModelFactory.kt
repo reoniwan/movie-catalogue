@@ -20,7 +20,7 @@ class ViewModelFactory constructor(
                 isAssignableFrom(MovieListViewModel::class.java) ->
                     MovieListViewModel(repository)
                 isAssignableFrom(MovieDetailViewModel::class.java) ->
-                    MovieDetailViewModel(repository, MovieDetailActivity.movieId)
+                    MovieDetailViewModel(repository)
                 isAssignableFrom(MovieFavoriteViewModel::class.java) ->
                     MovieFavoriteViewModel(repository)
                 else ->

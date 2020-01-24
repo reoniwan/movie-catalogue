@@ -7,17 +7,12 @@ import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieCatalogueDataFactory(
-    private val apiService: APICatalogueInterface,
-    private val compositeDisposable: CompositeDisposable
+    private val apiService: APICatalogueInterface
 ) : DataSource.Factory<Int, ResultMovie>() {
-    val movieLiveDataSource = MutableLiveData<MovieCatalogueDataSource>()
+    private val movieLiveDataSource = MutableLiveData<MovieCatalogueDataSource>()
 
     override fun create(): DataSource<Int, ResultMovie> {
-        val movieDataSource =
-            MovieCatalogueDataSource(
-                apiService,
-                compositeDisposable
-            )
+        val movieDataSource = MovieCatalogueDataSource(apiService)
 
         movieLiveDataSource.postValue(movieDataSource)
         return movieDataSource

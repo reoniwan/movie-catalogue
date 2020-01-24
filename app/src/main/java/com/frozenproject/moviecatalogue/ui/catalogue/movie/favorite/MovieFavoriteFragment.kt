@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,7 @@ import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.CATALOGUE_ID
 import com.frozenproject.moviecatalogue.data.network.ID
 import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
+import com.frozenproject.moviecatalogue.databinding.FragmentFavouriteMovieBinding
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.detail.MovieDetailActivity
 import com.frozenproject.moviecatalogue.utils.Injection
 import kotlinx.android.synthetic.main.fragment_favourite_movie.*
@@ -37,10 +39,19 @@ class MovieFavoriteFragment : Fragment() {
         }
     }
 
-    private lateinit var adapterList: MovieFavoriteAdapter
+    private val adapterMovie: MovieFavoriteAdapter by lazy {
+        MovieFavoriteAdapter{ goToDetailsMovies(it) }
+    }
+
+    private fun goToDetailsMovies(movies: ResultMovie) {
+        val i = Intent(mContext, MovieFavoriteAdapter::class.java)
+        i.putExtra(MovieDetailActivity.EXTRA_MOVIE, movies)
+        i.putExtra(MovieDetailActivity.IS_FAVORITE, true)
+    }
 
     private lateinit var viewModel: MovieFavoriteViewModel
     private lateinit var mContext: Context
+    private lateinit var binding : FragmentFavouriteMovieBinding
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -51,22 +62,22 @@ class MovieFavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_favourite_movie, container, false)
+       binding = DataBindingUtil.inflate(inflater,R.layout.fragment_favourite_movie, container, false)
 
-        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(mContext))
+        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(requireContext()))
             .get(MovieFavoriteViewModel::class.java)
 
-        recycler_favourite.apply {
-            adapter = adapterList
+        binding.recyclerFavourite.apply {
+            adapter = adapterMovie
             layoutManager = LinearLayoutManager(activity)
             setHasFixedSize(true)
         }
 
-        viewModel.dataMovies.observe(this@MovieFavoriteFragment, Observer {
-            adapterList.addItem(it)
+        viewModel.favMovies.observe(this@MovieFavoriteFragment, Observer<PagedList<ResultMovie>> {
+            adapterMovie.submitList(it)
         })
 
-        return root
+        return binding.root
     }
 
 }

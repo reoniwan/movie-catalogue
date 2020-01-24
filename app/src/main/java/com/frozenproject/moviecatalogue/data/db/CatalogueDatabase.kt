@@ -4,11 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 
 @Database(
-    entities = [MovieDetail::class],
+    entities = [ResultMovie::class],
     version = 1
 )
 abstract class CatalogueDatabase:RoomDatabase() {
