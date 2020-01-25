@@ -9,5 +9,8 @@ import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueR
 
 class MovieFavoriteViewModel(repository: MovieCatalogueRepository): ViewModel() {
 
-    val dataMovies = repository.getFavoriteMovies()
+    private val dataMovies = repository.getFavoriteMovies()
+    private val liveDataMovies = LivePagedListBuilder(dataMovies, 10).build()
+
+    val favMovies: LiveData<PagedList<ResultMovie>> get() = liveDataMovies
 }

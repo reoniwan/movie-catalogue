@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
+import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
+import com.frozenproject.moviecatalogue.data.db.series.SeriesDetail
 import com.frozenproject.moviecatalogue.data.network.NetworkState
 import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
 import io.reactivex.disposables.CompositeDisposable
@@ -14,23 +16,25 @@ class MovieDetailViewModel(
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
-    private val _detail = MutableLiveData<MovieDetail>()
+    val movieDetails: LiveData<MovieDetail> by lazy {
+        movieRepository.getDetailMovies(compositeDisposable, movieId)
+    }
 
-    val detail: LiveData<MovieDetail> get() = _detail
+    private val _detailFavorite = MutableLiveData<ResultMovie>()
 
-    fun setData(data: MovieDetail){
-        _detail.postValue(data)
+    fun setData(data: ResultMovie){
+        _detailFavorite.postValue(data)
     }
 
     val networkState: LiveData<NetworkState> by lazy {
         movieRepository.getNetworkStateDetail()
     }
 
-    fun addToFavorite(data: MovieDetail){
+    fun addToFavorite(data: ResultMovie){
         movieRepository.addToFavorite(data)
     }
 
-    fun deleteFromFavorite(data: MovieDetail){
+    fun deleteFromFavorite(data: ResultMovie){
         movieRepository.unFavoriteMovie(data)
     }
 

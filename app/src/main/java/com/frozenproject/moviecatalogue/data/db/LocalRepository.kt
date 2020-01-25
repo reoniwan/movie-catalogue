@@ -11,17 +11,17 @@ class LocalRepository(
     private var ioExecutor: Executor
 ) {
 
-    fun getMoviesFavorite(id: Int): LiveData<MovieDetail>{
-        return favoriteDao.getAllFavoriteMovie(id)
+    fun getMoviesFavorite(): DataSource.Factory<Int, ResultMovie>{
+        return favoriteDao.getAllFavoriteMovie("")
     }
 
-    fun addToFavorite(data: MovieDetail){
+    fun addToFavorite(data: ResultMovie){
         ioExecutor.execute {
             favoriteDao.insert(data)
         }
     }
 
-    fun deleteFromFavorite(data: MovieDetail){
+    fun deleteFromFavorite(data: ResultMovie){
         ioExecutor.execute {
             favoriteDao.delete(data)
         }

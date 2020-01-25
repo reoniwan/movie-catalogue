@@ -1,5 +1,7 @@
 package com.frozenproject.moviecatalogue.ui.catalogue.movie.detail
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -49,12 +51,12 @@ class MovieDetailActivity : AppCompatActivity() {
 
         //Data Movie
         val isFavorite = intent.getBooleanExtra(IS_FAVORITE, false)
-        val data = intent.getParcelableExtra<MovieDetail>(EXTRA_MOVIE)
+        val data = intent.getParcelableExtra<ResultMovie>(EXTRA_MOVIE)
         movieId = intent.getIntExtra(ID, CATALOGUE_ID)
 
         viewModel.setData(data)
 
-        viewModel.detail.observe(this, Observer {
+        viewModel.movieDetails.observe(this, Observer {
             bindUI(it)
 
         })
@@ -67,16 +69,36 @@ class MovieDetailActivity : AppCompatActivity() {
         })
 
         toggle_favorite.setOnClickListener {
-            if (isFavorite){
+            if (isFavorite == readState()){
                 toggle_favorite.setBackgroundResource(R.drawable.ic_favorite_red)
                 viewModel.deleteFromFavorite(data)
+                saveStates(isFavorite)
                 Toast.makeText(this, "Delete Favorite", Toast.LENGTH_SHORT).show()
             }else{
                 toggle_favorite.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
                 viewModel.addToFavorite(data)
-                Toast.makeText(this, "Delete Favorite", Toast.LENGTH_SHORT).show()
+                saveStates(isFavorite)
+                Toast.makeText(this, "Add Favorite", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun saveStates(favorite: Boolean) {
+        val aSharedPreferences = this.getSharedPreferences(
+            IS_FAVORITE, Context.MODE_PRIVATE
+        )
+        val aSharedEdit : SharedPreferences.Editor = aSharedPreferences.edit()
+
+        aSharedEdit.putBoolean("State", favorite)
+        aSharedEdit.apply()
+    }
+
+    private fun readState(): Boolean {
+
+        val aSharedPreferences: SharedPreferences = this.getSharedPreferences(
+            IS_FAVORITE, Context.MODE_PRIVATE
+        )
+        return aSharedPreferences.getBoolean("State", true)
     }
 
     private fun bindUI(it: MovieDetail) {
@@ -87,7 +109,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val formatCurrency = NumberFormat.getCurrencyInstance(Locale.US)
         budget_movie.text = formatCurrency.format(it.budget)
-        revenue_movie.text = formatCurrency.format(it.revenue)
+        vote_movie.text = formatCurrency.format(it.revenue)
 
         val moviePosterUrl = POSTER_BASE_URL + it.posterPath
         Glide.with(this)

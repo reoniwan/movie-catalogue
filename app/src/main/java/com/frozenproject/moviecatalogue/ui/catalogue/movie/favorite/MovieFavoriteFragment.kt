@@ -12,12 +12,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.CATALOGUE_ID
 import com.frozenproject.moviecatalogue.data.network.ID
 import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
+import com.frozenproject.moviecatalogue.ui.catalogue.movie.MovieItemListAdapter
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.detail.MovieDetailActivity
 import com.frozenproject.moviecatalogue.utils.Injection
 import kotlinx.android.synthetic.main.fragment_favourite_movie.*
@@ -37,7 +39,14 @@ class MovieFavoriteFragment : Fragment() {
         }
     }
 
-    private lateinit var adapterList: MovieFavoriteAdapter
+
+    private fun goToDetailMovie(movie: ResultMovie) {
+        val intent = Intent(activity, MovieDetailActivity::class.java)
+        intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie)
+        intent.putExtra(ID, CATALOGUE_ID)
+        intent.putExtra(MovieDetailActivity.IS_FAVORITE, true)
+        startActivity(intent)
+    }
 
     private lateinit var viewModel: MovieFavoriteViewModel
     private lateinit var mContext: Context
@@ -56,17 +65,23 @@ class MovieFavoriteFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(mContext))
             .get(MovieFavoriteViewModel::class.java)
 
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val adapterList = MovieItemListAdapter(mContext)
+
         recycler_favourite.apply {
             adapter = adapterList
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = GridLayoutManager(mContext, 3)
             setHasFixedSize(true)
         }
 
-        viewModel.dataMovies.observe(this@MovieFavoriteFragment, Observer {
-            adapterList.addItem(it)
+        viewModel.favMovies.observe(this@MovieFavoriteFragment, Observer<PagedList<ResultMovie>> {
+            adapterList.submitList(it)
         })
-
-        return root
     }
 
 }

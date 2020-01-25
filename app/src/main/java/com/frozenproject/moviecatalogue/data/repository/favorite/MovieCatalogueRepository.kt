@@ -38,15 +38,15 @@ class MovieCatalogueRepository(
         return movieRemoteRepository.getMovieDetailsNetworkState()
     }
 
-    override fun getFavoriteMovies(id: Int): LiveData<MovieDetail> {
-        return localRepository.getMoviesFavorite(id)
+    override fun getFavoriteMovies(): DataSource.Factory<Int, ResultMovie> {
+        return localRepository.getMoviesFavorite()
     }
 
-    override fun unFavoriteMovie(data: MovieDetail) {
+    override fun unFavoriteMovie(data: ResultMovie) {
         return localRepository.deleteFromFavorite(data)
     }
 
-    override fun addToFavorite(data: MovieDetail) {
+    override fun addToFavorite(data: ResultMovie) {
         return localRepository.addToFavorite(data)
     }
 }

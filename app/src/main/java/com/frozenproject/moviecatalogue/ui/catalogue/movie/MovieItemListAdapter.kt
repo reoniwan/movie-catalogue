@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.callback.MovieCallback
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
+import com.frozenproject.moviecatalogue.data.network.CATALOGUE_ID
 import com.frozenproject.moviecatalogue.data.network.ID
 import com.frozenproject.moviecatalogue.data.network.NetworkState
 import com.frozenproject.moviecatalogue.data.network.POSTER_BASE_URL
@@ -61,6 +62,8 @@ class MovieItemListAdapter(private var context: Context) :
             itemView.setOnClickListener {
                 val intent = Intent(context, MovieDetailActivity::class.java)
                 intent.putExtra(ID, movie?.idMovie)
+                intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie)
+                intent.putExtra(MovieDetailActivity.IS_FAVORITE, false)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             }

@@ -62,8 +62,8 @@ class DetailSeriesActivity : AppCompatActivity() {
 
     private fun bindUI(seriesEntry: SeriesDetail?) {
         txt_title_series_detail.text = seriesEntry?.title
-        txt_episode.text = seriesEntry?.episode.toString()
-        txt_first_air_date.text = seriesEntry?.airDate
+        txt_vote_count_series.text = seriesEntry?.episode.toString()
+        txt_popularity_series.text = seriesEntry?.airDate
         txt_last_air_date.text = seriesEntry?.lastAirDate
         txt_rating_detail_series.text = seriesEntry?.rating.toString()
         txt_description_series.text = seriesEntry?.overview

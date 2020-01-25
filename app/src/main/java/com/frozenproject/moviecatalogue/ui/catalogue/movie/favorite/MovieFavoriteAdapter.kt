@@ -23,24 +23,8 @@ import com.frozenproject.moviecatalogue.utils.CustomOnItemClickListener
 import kotlinx.android.synthetic.main.item_favourite_movie.view.*
 
 class MovieFavoriteAdapter(
-    private val activity: Activity
-): RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavViewModel>() {
-
-    private var listMovies = ArrayList<MovieDetail>()
-            set(listMovies) {
-                if (listMovies.size > 0){
-                    this.listMovies.clear()
-                }
-
-                this.listMovies.addAll(listMovies)
-
-                notifyDataSetChanged()
-            }
-
-    fun addItem(movie: MovieDetail){
-        this.listMovies.add(movie)
-        notifyItemInserted(this.listMovies.size - 1)
-    }
+    private val onclick: (ResultMovie) -> Unit
+): PagedListAdapter<ResultMovie, MovieFavoriteAdapter.MovieFavViewModel>(MovieCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieFavViewModel {
@@ -52,34 +36,29 @@ class MovieFavoriteAdapter(
     }
 
     override fun onBindViewHolder(holder: MovieFavViewModel, position: Int) {
-        holder.bind(listMovies[position])
+        getItem(position)?.let {data ->
+            holder.bind(data, onclick)
+        }
     }
 
     inner class MovieFavViewModel(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(movie: MovieDetail?){
+        fun bind(movie: ResultMovie, onclick: (ResultMovie) -> Unit){
             with(itemView){
-                title_favourite_movie.text = movie?.title
-                txt_release_favourite_movie.text = movie?.releaseDate
+                title_favourite_movie.text = movie.title
+                txt_release_favourite_movie.text = movie.releaseDate
 
-                val movieImagePoster = POSTER_BASE_URL + movie?.posterPath
+                val movieImagePoster = POSTER_BASE_URL + movie.imageMovie
                 Glide.with(itemView)
                     .load(movieImagePoster)
                     .into(img_movieFav)
 
-                cv_favorite_movie.setOnClickListener(
-                    CustomOnItemClickListener(adapterPosition,
-                        object : CustomOnItemClickListener.OnItemClickCallBack{
-                            override fun onItemClicked(view: View, position: Int) {
-                                val intent = Intent(activity, MovieDetailActivity::class.java)
-                                intent.putExtra(ID, CATALOGUE_ID)
-                                intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie)
-                                intent.putExtra(MovieDetailActivity.IS_FAVORITE, true)
-                            }
+                val backDropImage = POSTER_BASE_URL + movie.backdrop
+                Glide.with(itemView)
+                    .load(backDropImage)
+                    .into(img_backdrop_path)
 
-                        }))
+                itemView.setOnClickListener { onclick(movie) }
             }
         }
     }
-
-    override fun getItemCount(): Int = listMovies.size
 }
