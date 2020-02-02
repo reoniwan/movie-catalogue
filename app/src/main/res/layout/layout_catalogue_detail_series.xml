@@ -60,7 +60,7 @@
             app:layout_constraintBottom_toTopOf="@+id/include"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_detail_series"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/txt_rating_detail_series"
@@ -114,13 +114,13 @@
             tools:text="Series Title" />
 
         <TextView
-            android:id="@+id/vote"
+            android:id="@+id/episode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/vote_count"
+            android:text="@string/total_episodes"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -131,7 +131,7 @@
             app:layout_goneMarginEnd="5dp" />
 
         <TextView
-            android:id="@+id/txt_vote_count_series"
+            android:id="@+id/txt_episode_series"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -142,27 +142,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/vote"
+            app:layout_constraintTop_toBottomOf="@+id/episode"
             tools:text="vote" />
 
         <TextView
-            android:id="@+id/title_popularity"
+            android:id="@+id/title_first_air"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-            android:text="@string/popularity"
+            android:text="@string/date"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_vote_count_series" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_episode_series" />
 
         <TextView
-            android:id="@+id/txt_popularity_series"
+            android:id="@+id/txt_first_air"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -173,8 +173,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/title_popularity"
-            tools:text="Detail Popularity" />
+            app:layout_constraintTop_toBottomOf="@+id/title_first_air"
+            tools:text="Detail First" />
 
         <TextView
             android:id="@+id/date"
@@ -182,14 +182,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="@string/date"
+            android:text="@string/date_last"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_series_detail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_popularity_series" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_first_air" />
 
         <TextView
             android:id="@+id/txt_last_air_date"
@@ -207,12 +207,122 @@
             app:layout_constraintTop_toBottomOf="@+id/date"
             tools:text="Ongoing" />
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:padding="8dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cardview2">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/image_trailer"
+                android:src="@drawable/ic_video_black_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="@string/trailer" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="8dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintHorizontal_bias="0.58"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toTopOf="@+id/cardview3">
+
+            <ToggleButton
+                android:id="@+id/toggle_favorite_series"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_favorite_border_black_24dp"
+                android:contentDescription="@string/image_favorite"
+                android:foreground="?attr/selectableItemBackground"
+                android:textOff=""
+                android:textOn="" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="@string/like" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.384"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintVertical_bias="0.96">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/image_actor"
+                android:src="@drawable/ic_actor_black_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="@string/actor" />
+
+        </androidx.cardview.widget.CardView>
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="325dp" />
+            app:layout_constraintGuide_begin="415dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="2dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="107dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="97dp" />
 
         <include
             android:id="@+id/include"

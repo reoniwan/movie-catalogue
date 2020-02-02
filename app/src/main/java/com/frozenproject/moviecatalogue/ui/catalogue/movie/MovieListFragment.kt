@@ -7,16 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.data.network.APICatalogueClient
-import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
-import com.frozenproject.moviecatalogue.data.repository.remote.MovieRemoteRepository
 import com.frozenproject.moviecatalogue.utils.Injection
 import kotlinx.android.synthetic.main.fragment_movie.*
 
@@ -50,7 +44,7 @@ class MovieListFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_movie, container, false)
 
-        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(mContext))
+        viewModel = ViewModelProvider(this, Injection.provideViewModelFactory(mContext))
             .get(MovieListViewModel::class.java)
 
         return root
@@ -79,11 +73,11 @@ class MovieListFragment : Fragment() {
         rv_catalogue_movie.layoutManager = gridLayoutManager
         rv_catalogue_movie.setHasFixedSize(true)
 
-        movieCatalogueEntries.observe(this, Observer {
+        movieCatalogueEntries.observe(viewLifecycleOwner, Observer {
             movieAdapter.submitList(it)
         })
 
-        networkStateView.observe(this, Observer {
+        networkStateView.observe(viewLifecycleOwner, Observer {
             progress_bar_movie.visibility =
                 if (viewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
             txt_error_movie.visibility =

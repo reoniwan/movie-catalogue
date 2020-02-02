@@ -1,24 +1,17 @@
 package com.frozenproject.moviecatalogue.ui.catalogue.movie.detail
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.*
-import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
 import com.frozenproject.moviecatalogue.utils.Injection
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.layout_catalogue_description.*
 import kotlinx.android.synthetic.main.layout_catalogue_detail.*
@@ -28,11 +21,11 @@ import java.util.*
 class MovieDetailActivity : AppCompatActivity() {
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this, Injection.provideViewModelFactory(this))
+        ViewModelProvider(this, Injection.provideViewModelFactory(this))
             .get(MovieDetailViewModel::class.java)
     }
 
-    companion object{
+    companion object {
         var movieId: Int = 0
         const val EXTRA_MOVIE = "extra_movie"
         const val IS_FAVORITE = "favorite"
@@ -51,10 +44,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
         //Data Movie
         val isFavorite = intent.getBooleanExtra(IS_FAVORITE, false)
-        val data = intent.getParcelableExtra<ResultMovie>(EXTRA_MOVIE)
+        val data = intent.getParcelableExtra<ResultMovie>(EXTRA_MOVIE) //BUG API 29
         movieId = intent.getIntExtra(ID, CATALOGUE_ID)
-
-        viewModel.setData(data)
 
         viewModel.movieDetails.observe(this, Observer {
             bindUI(it)
@@ -68,38 +59,31 @@ class MovieDetailActivity : AppCompatActivity() {
                 if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
         })
 
-        toggle_favorite.setOnClickListener {
-            if (isFavorite == readState()){
-                toggle_favorite.setBackgroundResource(R.drawable.ic_favorite_red)
-                viewModel.deleteFromFavorite(data)
-                saveStates(isFavorite)
-                Toast.makeText(this, "Delete Favorite", Toast.LENGTH_SHORT).show()
-            }else{
-                toggle_favorite.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
-                viewModel.addToFavorite(data)
-                saveStates(isFavorite)
-                Toast.makeText(this, "Add Favorite", Toast.LENGTH_SHORT).show()
+        toggle_favorite.apply {
+            when (isFavorite) {
+                true -> {
+                    toggle_favorite.setBackgroundResource(R.drawable.ic_favorite_red)
+                    setOnClickListener {
+                        viewModel.deleteFromFavorite(data) //BUG API 29
+                        showToast("Delete Favorite!")
+                    }
+                }
+
+                false -> {
+                    toggle_favorite.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
+                    setOnClickListener {
+                        viewModel.addToFavorite(data) //BUG API 29
+                        showToast("Add to Favorite Success!")
+                    }
+                }
             }
         }
     }
 
-    private fun saveStates(favorite: Boolean) {
-        val aSharedPreferences = this.getSharedPreferences(
-            IS_FAVORITE, Context.MODE_PRIVATE
-        )
-        val aSharedEdit : SharedPreferences.Editor = aSharedPreferences.edit()
-
-        aSharedEdit.putBoolean("State", favorite)
-        aSharedEdit.apply()
+    private fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
-    private fun readState(): Boolean {
-
-        val aSharedPreferences: SharedPreferences = this.getSharedPreferences(
-            IS_FAVORITE, Context.MODE_PRIVATE
-        )
-        return aSharedPreferences.getBoolean("State", true)
-    }
 
     private fun bindUI(it: MovieDetail) {
         txt_title_movie_detail.text = it.title
@@ -109,7 +93,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val formatCurrency = NumberFormat.getCurrencyInstance(Locale.US)
         budget_movie.text = formatCurrency.format(it.budget)
-        vote_movie.text = formatCurrency.format(it.revenue)
+        revenue_movie.text = formatCurrency.format(it.revenue)
 
         val moviePosterUrl = POSTER_BASE_URL + it.posterPath
         Glide.with(this)

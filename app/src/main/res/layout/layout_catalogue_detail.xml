@@ -5,18 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
         <include
             android:id="@+id/toolbar_detail"
             layout="@layout/app_bar_main"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -101,7 +98,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/popularity"
+            android:text="@string/budget"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -133,7 +130,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-            android:text="@string/vote_count"
+            android:text="@string/revenue"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -143,7 +140,7 @@
             app:layout_constraintTop_toBottomOf="@+id/budget_movie" />
 
         <TextView
-            android:id="@+id/vote_movie"
+            android:id="@+id/revenue_movie"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -155,7 +152,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
             app:layout_constraintTop_toBottomOf="@+id/revenue"
-            tools:text="vote" />
+            tools:text="@string/revenue" />
 
         <TextView
             android:id="@+id/date"
@@ -170,7 +167,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_movie_detail"
-            app:layout_constraintTop_toBottomOf="@+id/vote_movie" />
+            app:layout_constraintTop_toBottomOf="@+id/revenue_movie" />
 
         <TextView
             android:id="@+id/date_movie"
@@ -203,7 +200,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:contentDescription="@string/image_rating"
+                android:contentDescription="@string/trailer"
                 android:src="@drawable/ic_video_black_24dp" />
 
             <TextView
@@ -222,6 +219,7 @@
             android:padding="8dp"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintHorizontal_bias="0.58"
             app:layout_constraintStart_toStartOf="@+id/guideline5"
             app:layout_constraintTop_toTopOf="@+id/cardview3">
 
@@ -231,10 +229,11 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/ic_favorite_border_black_24dp"
                 android:contentDescription="@string/image_favorite"
-                android:textOn=""
+                android:foreground="?attr/selectableItemBackground"
                 android:textOff=""
-                android:background="@drawable/ic_favorite_border_black_24dp"/>
+                android:textOn="" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -302,6 +301,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="97dp" />
+
 
         <include
             android:id="@+id/include"

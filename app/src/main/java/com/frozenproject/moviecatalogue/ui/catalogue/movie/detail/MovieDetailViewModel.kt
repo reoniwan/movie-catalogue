@@ -1,43 +1,34 @@
 package com.frozenproject.moviecatalogue.ui.catalogue.movie.detail
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
-import com.frozenproject.moviecatalogue.data.db.series.SeriesDetail
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
+import com.frozenproject.moviecatalogue.data.repository.CatalogueRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieDetailViewModel(
-    private val movieRepository: MovieCatalogueRepository,
+    private val catalogueRepository: CatalogueRepository,
     movieId: Int
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     val movieDetails: LiveData<MovieDetail> by lazy {
-        movieRepository.getDetailMovies(compositeDisposable, movieId)
-    }
-
-    private val _detailFavorite = MutableLiveData<ResultMovie>()
-
-    fun setData(data: ResultMovie){
-        _detailFavorite.postValue(data)
+        catalogueRepository.getDetailMovies(compositeDisposable, movieId)
     }
 
     val networkState: LiveData<NetworkState> by lazy {
-        movieRepository.getNetworkStateDetail()
+        catalogueRepository.getNetworkStateDetail()
     }
 
-    fun addToFavorite(data: ResultMovie){
-        movieRepository.addToFavorite(data)
+    fun addToFavorite(data: ResultMovie) {
+        catalogueRepository.addToFavorite(data)
     }
 
-    fun deleteFromFavorite(data: ResultMovie){
-        movieRepository.unFavoriteMovie(data)
+    fun deleteFromFavorite(data: ResultMovie) {
+        catalogueRepository.unFavoriteMovie(data)
     }
-
 
     override fun onCleared() {
         super.onCleared()

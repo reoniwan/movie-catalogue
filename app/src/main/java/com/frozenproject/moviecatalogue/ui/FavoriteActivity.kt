@@ -1,14 +1,12 @@
-package com.frozenproject.moviecatalogue
+package com.frozenproject.moviecatalogue.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.ui.adapter.SectionPagerFavorite
-import com.frozenproject.moviecatalogue.ui.adapter.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.activity_favorite.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 
-class FavoriteActivity: AppCompatActivity() {
+class FavoriteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +16,16 @@ class FavoriteActivity: AppCompatActivity() {
         view_pager_favorite.adapter = sectionsPagerAdapter
         tabs_favorite.setupWithViewPager(view_pager_favorite)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_favorite)
+        val actionBar = supportActionBar
+        actionBar?.title = getString(R.string.favorite)
 
-        supportActionBar?.elevation = 0f
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

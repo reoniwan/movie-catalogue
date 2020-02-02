@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="2dp">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:elevation="5dp">
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -18,8 +20,9 @@
                 android:id="@+id/img_backdrop_path_sFav"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:scaleType="centerCrop"
-                tools:src="@color/colorPrimaryDark" />
+                android:scaleType="fitXY"
+                tools:src="@color/colorAccent"
+                android:contentDescription="@string/backdropfavoriteseries" />
 
             <ImageView
                 android:id="@+id/img_seriesFav"
@@ -31,8 +34,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="26dp"
-                android:background="@drawable/shadow_rect"
-                tools:src="@drawable/ic_launcher_foreground" />
+                tools:src="@drawable/ic_launcher_foreground"
+                android:contentDescription="@string/posterfavseries" />
 
             <TextView
                 android:id="@+id/title_favourite_series"
@@ -42,18 +45,24 @@
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="14dp"
                 android:layout_toEndOf="@+id/img_seriesFav"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
+                android:textStyle="bold"
+                android:maxLines="3"
                 tools:text="Star Wars: The Rise of Skywalker" />
 
             <TextView
                 android:id="@+id/txt_release_favourite_series"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title_favourite_series"
+                android:layout_alignParentBottom="true"
                 android:layout_marginTop="27dp"
+                android:layout_marginEnd="4dp"
                 android:layout_toEndOf="@+id/img_seriesFav"
                 android:gravity="end"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 tools:text="2019-08-01" />
 
         </RelativeLayout>

@@ -8,16 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.data.network.APICatalogueClient
-import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.data.repository.SeriesCatalogueRepository
+import com.frozenproject.moviecatalogue.utils.Injection
 import kotlinx.android.synthetic.main.fragment_series.*
 
 /**
@@ -26,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_series.*
 class SeriesListFragment : Fragment() {
 
     private lateinit var viewModel: SeriesListViewModel
-    lateinit var seriesRepository: SeriesCatalogueRepository
     private lateinit var mContext: Context
 
     companion object {
@@ -55,10 +50,8 @@ class SeriesListFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_series, container, false)
 
-        val apiService: APICatalogueInterface = APICatalogueClient.getClient()
-        seriesRepository = SeriesCatalogueRepository(apiService)
-        viewModel = getViewModel()
-
+        viewModel = ViewModelProvider(this, Injection.provideViewModelFactory(mContext))
+            .get(SeriesListViewModel::class.java)
 
         return root
     }
@@ -85,11 +78,11 @@ class SeriesListFragment : Fragment() {
         rv_catalogue_series.layoutManager = gridLayoutManager
         rv_catalogue_series.setHasFixedSize(true)
 
-        seriesCatalogueEntries.observe(this, Observer {
+        seriesCatalogueEntries.observe(viewLifecycleOwner, Observer {
             seriesAdapter.submitList(it)
         })
 
-        networkStateView.observe(this, Observer {
+        networkStateView.observe(viewLifecycleOwner, Observer {
             progress_bar_series.visibility =
                 if (viewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
             txt_error_series.visibility =
@@ -101,16 +94,6 @@ class SeriesListFragment : Fragment() {
             }
         })
 
-    }
-
-
-    private fun getViewModel(): SeriesListViewModel {
-        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return SeriesListViewModel(seriesRepository) as T
-            }
-        })[SeriesListViewModel::class.java]
     }
 
 }

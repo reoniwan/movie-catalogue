@@ -7,7 +7,6 @@ import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.FIRST_PAGE
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.utils.EspressoIdlingResource
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
@@ -24,14 +23,12 @@ class MovieCatalogueDataSource(
         callback: LoadInitialCallback<Int, ResultMovie>
     ) {
         networkState.postValue(NetworkState.LOADING)
-        EspressoIdlingResource.increment()
 
         compositeDisposable.add(
             apiService.getCatalogueMovie(page)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     {
-                        EspressoIdlingResource.decrement()
                         callback.onResult(it.resultsMovie, null, page + 1)
                         networkState.postValue(NetworkState.LOADED)
                     },
@@ -46,14 +43,12 @@ class MovieCatalogueDataSource(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, ResultMovie>) {
         networkState.postValue(NetworkState.LOADING)
-        EspressoIdlingResource.increment()
 
         compositeDisposable.add(
             apiService.getCatalogueMovie(params.key)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     {
-                        EspressoIdlingResource.decrement()
                         if (it.totalPages >= params.key) {
                             callback.onResult(it.resultsMovie, params.key + 1)
                             networkState.postValue(NetworkState.LOADED)

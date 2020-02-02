@@ -4,7 +4,7 @@
     </string>
     <string name="date">Tayang Perdana</string>
     <string name="release">Tanggal Rilis</string>
-    <string name="vote_count">Jumlah Voting</string>
+    <string name="revenue">Penghasilan</string>
     <string name="like">Suka</string>
     <string name="description">Gambaran Cerita</string>
     <string name="title">Judul</string>
@@ -14,14 +14,14 @@
     <string name="img_movie">img_movie</string>
     <string name="tv_series">SERIAL TV</string>
     <string name="movie">FILM</string>
+    <string name="favorite">Daftar Favorite</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="series_title">Judul Serial</string>
     <string name="trailer">Trailer</string>
     <string name="image_favorite">Gambar Favorite</string>
-    <string name="image_rating">Gambar Rating</string>
-    <string name="budget_detail">Detail Biaya</string>
-    <string name="popularity">Popularitas</string>
+    <string name="image_trailer">Gambar Trailer</string>
+    <string name="budget">Anggaran</string>
     <string name="image_movie">Gambar Movie</string>
     <string name="image_tv_series">Gambar Serial TV</string>
     <string name="image_actor">Gambar Actor</string>
@@ -29,8 +29,12 @@
     <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
     <string name="background">Latar</string>
     <string name="connection_problem">Koneksi Bermasalah!!</string>
-    <string name="episode">Jumlah Episode</string>
     <string name="date_last">Akhir Tayang</string>
     <string name="empty_favourite">Empty Favorite</string>
+    <string name="total_episodes">Jumlah Episode</string>
+    <string name="backdropfavoriteseries">BackdropFavoriteSeries</string>
+    <string name="posterfavseries">posterFavSeries</string>
+    <string name="backdropfavmovie">backdropFavMovie</string>
+    <string name="posterfavmovie">posterFavMovie</string>
 
 </resources>

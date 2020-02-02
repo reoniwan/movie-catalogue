@@ -53,14 +53,16 @@ class SeriesItemListAdapter(private var context: Context) :
             itemView.txt_release_series.text = series?.releaseDate
             itemView.txt_rating_series.text = series?.ratingSeries.toString()
 
-            val movieImagePoster = POSTER_BASE_URL + series?.imageSeries
+            val seriesImagePoster = POSTER_BASE_URL + series?.imageSeries
             Glide.with(itemView.context)
-                .load(movieImagePoster)
+                .load(seriesImagePoster)
                 .into(itemView.img_series)
 
             itemView.setOnClickListener {
                 val intent = Intent(context, DetailSeriesActivity::class.java)
                 intent.putExtra(ID, series?.idSeries)
+                intent.putExtra(DetailSeriesActivity.IS_FAVORITE_SERIES, false)
+                intent.putExtra(DetailSeriesActivity.EXTRA_SERIES, series)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             }

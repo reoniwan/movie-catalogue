@@ -26,8 +26,7 @@
         android:gravity="center"
         android:text="@string/connection_problem"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/progress_bar_detail_movie"
-       />
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar_detail_movie" />
 
 
     <TextView

@@ -1,4 +1,4 @@
-package com.frozenproject.moviecatalogue.ui.catalogue.movie.favorite
+package com.frozenproject.moviecatalogue.ui.catalogue.series.favorite
 
 import android.content.Context
 import android.content.Intent
@@ -12,20 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
+import com.frozenproject.moviecatalogue.data.db.series.ResultSeries
 import com.frozenproject.moviecatalogue.data.network.ID
-import com.frozenproject.moviecatalogue.ui.catalogue.movie.detail.MovieDetailActivity
+import com.frozenproject.moviecatalogue.ui.catalogue.series.detail.DetailSeriesActivity
 import com.frozenproject.moviecatalogue.utils.Injection
-import kotlinx.android.synthetic.main.fragment_favourite_movie.*
+import kotlinx.android.synthetic.main.fragment_favourite_series.*
 
-class MovieFavoriteFragment : Fragment() {
+class SeriesFavoriteFragment : Fragment() {
 
     companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
 
-        fun newInstance(index: Int): MovieFavoriteFragment {
+        fun newInstance(index: Int): SeriesFavoriteFragment {
             val fragment =
-                MovieFavoriteFragment()
+                SeriesFavoriteFragment()
             val bundle = Bundle()
             bundle.putInt(ARG_SECTION_NUMBER, index)
             fragment.arguments = bundle
@@ -33,10 +33,10 @@ class MovieFavoriteFragment : Fragment() {
         }
     }
 
-    private val adapterList: MovieFavoriteAdapter by lazy {
-        MovieFavoriteAdapter { goToDetailMovie(it) }
+    private val adapterList: SeriesFavoriteAdapter by lazy {
+        SeriesFavoriteAdapter { goToDetailSeries(it) }
     }
-    private lateinit var viewModel: MovieFavoriteViewModel
+    private lateinit var viewModel: SeriesFavoriteViewModel
     private lateinit var mContext: Context
 
     override fun onAttach(context: Context) {
@@ -48,10 +48,10 @@ class MovieFavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_favourite_movie, container, false)
+        val root = inflater.inflate(R.layout.fragment_favourite_series, container, false)
 
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory(mContext))
-            .get(MovieFavoriteViewModel::class.java)
+            .get(SeriesFavoriteViewModel::class.java)
 
         return root
     }
@@ -59,24 +59,23 @@ class MovieFavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recycler_favourite.apply {
+        recycler_favourite_series.apply {
             adapter = adapterList
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
 
         }
 
-        viewModel.favMovies.observe(viewLifecycleOwner, Observer<PagedList<ResultMovie>> {
+        viewModel.favSeries.observe(viewLifecycleOwner, Observer<PagedList<ResultSeries>> {
             adapterList.submitList(it)
         })
     }
 
-    private fun goToDetailMovie(movie: ResultMovie) {
-        val intent = Intent(activity, MovieDetailActivity::class.java)
-        intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie)
-        intent.putExtra(ID, movie.idMovie)
-        intent.putExtra(MovieDetailActivity.IS_FAVORITE, true)
+    private fun goToDetailSeries(series: ResultSeries) {
+        val intent = Intent(activity, DetailSeriesActivity::class.java)
+        intent.putExtra(DetailSeriesActivity.EXTRA_SERIES, series)
+        intent.putExtra(ID, series.idSeries)
+        intent.putExtra(DetailSeriesActivity.IS_FAVORITE_SERIES, true)
         startActivity(intent)
     }
-
 }

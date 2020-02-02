@@ -3,5 +3,6 @@
     <color name="colorPrimary">#6495ED</color>
     <color name="colorPrimaryDark">#6495ED</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="favorite">#e5e5e5</color>
     <color name="ripple">#778899</color>
 </resources>

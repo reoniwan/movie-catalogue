@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
-import com.frozenproject.moviecatalogue.FavoriteActivity
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.ui.adapter.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_favourite"
         android:layout_width="match_parent"
@@ -11,15 +10,15 @@
 
     <TextView
         android:id="@+id/txt_empty_cart"
-        android:fontFamily="@font/casper_marker"
-        android:text="@string/empty_favourite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:visibility="gone"
-        android:textSize="35sp"/>
+        android:fontFamily="@font/casper_marker"
+        android:text="@string/empty_favourite"
+        android:textSize="35sp"
+        android:visibility="gone" />
 
 </RelativeLayout>

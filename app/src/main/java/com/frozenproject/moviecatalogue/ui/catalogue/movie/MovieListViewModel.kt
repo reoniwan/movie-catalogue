@@ -3,21 +3,21 @@ package com.frozenproject.moviecatalogue.ui.catalogue.movie
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.data.repository.favorite.MovieCatalogueRepository
+import com.frozenproject.moviecatalogue.data.repository.CatalogueRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieListViewModel(
-    private val movieRepository: MovieCatalogueRepository
+    private val catalogueRepository: CatalogueRepository
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
     val movieEntries by lazy {
-        movieRepository.getAllMovies(compositeDisposable)
+        catalogueRepository.getAllMovies(compositeDisposable)
     }
 
     val networkState: LiveData<NetworkState> by lazy {
-        movieRepository.getNetworkState()
+        catalogueRepository.getNetworkState()
     }
 
     fun listIsEmpty(): Boolean {

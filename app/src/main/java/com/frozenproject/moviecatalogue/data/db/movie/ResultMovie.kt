@@ -1,7 +1,6 @@
 package com.frozenproject.moviecatalogue.data.db.movie
 
 import android.os.Parcelable
-import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -30,4 +29,4 @@ data class ResultMovie(
     val popularity: Double,
     @SerializedName("backdrop_path")
     val backdrop: String
-): Parcelable
+) : Parcelable
