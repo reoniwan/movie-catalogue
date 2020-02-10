@@ -17,6 +17,8 @@ const val POST_PAGE = 10
 const val CATALOGUE_ID = 1
 const val ID = "id"
 
+const val SEARCH = "search"
+
 object APICatalogueClient {
 
     fun getClient(): APICatalogueInterface {

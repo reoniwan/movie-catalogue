@@ -2,6 +2,8 @@ package com.frozenproject.moviecatalogue.ui.catalogue.movie
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
+import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.NetworkState
 import com.frozenproject.moviecatalogue.data.repository.CatalogueRepository
 import io.reactivex.disposables.CompositeDisposable
@@ -19,6 +21,7 @@ class MovieListViewModel(
     val networkState: LiveData<NetworkState> by lazy {
         catalogueRepository.getNetworkState()
     }
+
 
     fun listIsEmpty(): Boolean {
         return movieEntries.value?.isEmpty() ?: true

@@ -14,6 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.catalogue.search.FindCatalogueActivity"></activity>
+        <activity android:name=".ui.catalogue.search.SearchMovieActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +25,7 @@
         </activity>
         <activity android:name=".ui.catalogue.movie.detail.MovieDetailActivity" />
         <activity android:name=".ui.catalogue.series.detail.DetailSeriesActivity" />
-        <activity android:name=".ui.FavoriteActivity"/>
+        <activity android:name=".ui.FavoriteActivity" />
     </application>
 
 </manifest>

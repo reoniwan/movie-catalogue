@@ -11,12 +11,16 @@ import com.frozenproject.moviecatalogue.data.db.series.SeriesDetail
 import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.NetworkState
 import com.frozenproject.moviecatalogue.data.network.POST_PAGE
+import com.frozenproject.moviecatalogue.data.network.source.movie.search.FindMovieDataSource
 import com.frozenproject.moviecatalogue.data.network.source.movie.MovieCatalogueDataFactory
 import com.frozenproject.moviecatalogue.data.network.source.movie.MovieCatalogueDataSource
 import com.frozenproject.moviecatalogue.data.network.source.movie.MovieDetailsNetworkDataSc
+import com.frozenproject.moviecatalogue.data.network.source.movie.search.FindMovieDataFactory
 import com.frozenproject.moviecatalogue.data.network.source.series.SeriesCatalogueDataFactory
 import com.frozenproject.moviecatalogue.data.network.source.series.SeriesCatalogueDataSource
 import com.frozenproject.moviecatalogue.data.network.source.series.SeriesDetailsNetworkDataSc
+import com.frozenproject.moviecatalogue.data.network.source.series.search.FindSeriesDataFactory
+import com.frozenproject.moviecatalogue.data.network.source.series.search.FindSeriesDataSource
 import io.reactivex.disposables.CompositeDisposable
 
 class RemoteRepository(
@@ -25,9 +29,13 @@ class RemoteRepository(
     //Variable Movie
     private lateinit var moviePage: LiveData<PagedList<ResultMovie>>
     private lateinit var moviesDataSourceFactory: MovieCatalogueDataFactory
+
+    private lateinit var searchMovieDataFactory: FindMovieDataFactory
     //Variable Series
     private lateinit var seriesPage: LiveData<PagedList<ResultSeries>>
     private lateinit var seriesDataSourceFactory: SeriesCatalogueDataFactory
+
+    private lateinit var searchSeriesDataFactory: FindSeriesDataFactory
 
     //Variable Movie Detail
     private lateinit var movieDetails: MovieDetailsNetworkDataSc
@@ -79,6 +87,35 @@ class RemoteRepository(
         return movieDetails.networkState
     }
 
+    fun searchCatalogueMovie(
+        compositeDisposable: CompositeDisposable,
+        movieTitle: String
+    ): LiveData<PagedList<ResultMovie>>{
+        searchMovieDataFactory =
+            FindMovieDataFactory(
+                compositeDisposable,
+                apiService,
+                movieTitle)
+
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(POST_PAGE)
+            .build()
+
+        moviePage = LivePagedListBuilder(searchMovieDataFactory, config)
+            .build()
+
+        return moviePage
+    }
+
+    fun getSearchNetworkStateMovie(): LiveData<NetworkState>{
+        return Transformations.switchMap<FindMovieDataSource, NetworkState>(
+            searchMovieDataFactory.searchDataSource,
+            FindMovieDataSource::networkState
+        )
+    }
+
+
     //Series Repository
     fun fetchLiveSeriesPageList(compositeDisposable: CompositeDisposable): LiveData<PagedList<ResultSeries>> {
         seriesDataSourceFactory =
@@ -122,5 +159,35 @@ class RemoteRepository(
 
     fun getSeriesDetailsNetworkState(): LiveData<NetworkState> {
         return seriesDetails.networkState
+    }
+
+    fun searchCatalogueSeries(
+        compositeDisposable: CompositeDisposable,
+        seriesTitle: String
+    ):LiveData<PagedList<ResultSeries>>{
+        searchSeriesDataFactory =
+            FindSeriesDataFactory(
+                compositeDisposable,
+                apiService,
+                seriesTitle
+            )
+
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(POST_PAGE)
+            .build()
+
+        seriesPage = LivePagedListBuilder(searchSeriesDataFactory, config)
+            .build()
+
+        return seriesPage
+
+    }
+
+    fun getSearchNetworkStateSeries(): LiveData<NetworkState>{
+        return Transformations.switchMap<FindSeriesDataSource, NetworkState>(
+            searchSeriesDataFactory.searchDataSource,
+            FindSeriesDataSource::networkState
+        )
     }
 }

@@ -30,6 +30,17 @@ class CatalogueRepository(
         return remoteRepository.fetchMovieDetails(compositeDisposable, movieId)
     }
 
+    override fun searchCatalogueMovie(
+        compositeDisposable: CompositeDisposable,
+        movieTitle: String
+    ): LiveData<PagedList<ResultMovie>> {
+        return remoteRepository.searchCatalogueMovie(compositeDisposable, movieTitle)
+    }
+
+    override fun getNetworkStateSearchMovie(): LiveData<NetworkState> {
+        return remoteRepository.getSearchNetworkStateMovie()
+    }
+
     override fun getNetworkState(): LiveData<NetworkState> {
         return remoteRepository.getNetworkStateMovie()
     }
@@ -50,6 +61,7 @@ class CatalogueRepository(
         return localRepository.addToFavorite(data)
     }
 
+
     //Series
     override fun getAllSeries(compositeDisposable: CompositeDisposable): LiveData<PagedList<ResultSeries>> {
         return remoteRepository.fetchLiveSeriesPageList(compositeDisposable)
@@ -60,6 +72,17 @@ class CatalogueRepository(
         seriesId: Int
     ): LiveData<SeriesDetail> {
         return remoteRepository.fetchSeriesDetails(compositeDisposable, seriesId)
+    }
+
+    override fun searchCatalogueSeries(
+        compositeDisposable: CompositeDisposable,
+        seriesTitle: String
+    ): LiveData<PagedList<ResultSeries>> {
+        return remoteRepository.searchCatalogueSeries(compositeDisposable, seriesTitle)
+    }
+
+    override fun getNetworkStateSearchSeries(): LiveData<NetworkState> {
+        return remoteRepository.getSearchNetworkStateSeries()
     }
 
     override fun getNetworkStateSeries(): LiveData<NetworkState> {

@@ -20,6 +20,13 @@ interface TMDBDataSource {
         movieId: Int
     ): LiveData<MovieDetail>
 
+    fun searchCatalogueMovie(
+        compositeDisposable: CompositeDisposable,
+        movieTitle: String
+    ): LiveData<PagedList<ResultMovie>>
+
+    fun getNetworkStateSearchMovie(): LiveData<NetworkState>
+
     fun getNetworkState(): LiveData<NetworkState>
 
     fun getNetworkStateDetail(): LiveData<NetworkState>
@@ -37,6 +44,13 @@ interface TMDBDataSource {
         compositeDisposable: CompositeDisposable,
         seriesId: Int
     ): LiveData<SeriesDetail>
+
+    fun searchCatalogueSeries(
+        compositeDisposable: CompositeDisposable,
+        seriesTitle: String
+    ): LiveData<PagedList<ResultSeries>>
+
+    fun getNetworkStateSearchSeries(): LiveData<NetworkState>
 
     fun getNetworkStateSeries(): LiveData<NetworkState>
 

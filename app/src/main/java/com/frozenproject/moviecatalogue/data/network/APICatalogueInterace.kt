@@ -1,6 +1,8 @@
 package com.frozenproject.moviecatalogue.data.network
 
+import androidx.paging.DataSource
 import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
+import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.db.series.SeriesDetail
 import com.frozenproject.moviecatalogue.data.network.response.MovieCatalogueResponse
 import com.frozenproject.moviecatalogue.data.network.response.SeriesCatalogueResponse
@@ -22,6 +24,12 @@ interface APICatalogueInterface {
         @Path("movie_id") id: Int
     ): Single<MovieDetail>
 
+    @GET("search/movie")
+    fun searchMovie(
+        @Query("page") page: Int,
+        @Query("query") query: String
+    ): Single<MovieCatalogueResponse>
+
     @GET("discover/tv")
     fun getCatalogueSeries(
         @Query("page") page: Int
@@ -31,5 +39,13 @@ interface APICatalogueInterface {
     fun getSeriesDetails(
         @Path("tv_id") id: Int
     ): Single<SeriesDetail>
+
+    @GET("search/movie")
+    fun searchSeries(
+        @Query("page") page: Int,
+        @Query("query") query: String
+    ): Single<SeriesCatalogueResponse>
+
+
 
 }

@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/reno/AndroidStudioProjects/MovieCatalogue/cataloguefavapp/build/intermediates/incremental/mergeDebugResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml",
+            "map": [
+                {
+                    "source": "/home/reno/.gradle/caches/transforms-2/files-2.1/61d529a8c71b1df6adcd5b10dbc1aacc/appcompat-1.1.0/res/values-h720dp-v13/values-h720dp-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "66",
+                        "endOffsets": "117"
+                    }
+                }
+            ]
+        }
+    ]
+}
