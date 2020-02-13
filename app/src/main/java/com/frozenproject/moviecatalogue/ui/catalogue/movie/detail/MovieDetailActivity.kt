@@ -21,7 +21,7 @@ import java.util.*
 class MovieDetailActivity : AppCompatActivity() {
 
     private val viewModel by lazy {
-        ViewModelProvider(this, Injection.provideViewModelFactory(this))
+        ViewModelProvider(this, Injection.provideViewModelFactoryDetail(this, movieId))
             .get(MovieDetailViewModel::class.java)
     }
 
@@ -45,7 +45,7 @@ class MovieDetailActivity : AppCompatActivity() {
         //Data Movie
         val isFavorite = intent.getBooleanExtra(IS_FAVORITE, false)
         val data = intent.getParcelableExtra<ResultMovie>(EXTRA_MOVIE) //BUG API 29
-        movieId = intent.getIntExtra(ID, CATALOGUE_ID)
+        movieId = intent.getIntExtra(ID, 0)
 
         viewModel.movieDetails.observe(this, Observer {
             bindUI(it)

@@ -33,7 +33,7 @@ class SeriesFavoriteAdapter(
     inner class SeriesFavViewModel(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(series: ResultSeries, onclick: (ResultSeries) -> Unit) {
             with(itemView) {
-                title_favourite_series.text = series.titleSeries
+                title_favourite_series.text = series.name
                 txt_release_favourite_series.text = series.releaseDate
 
                 val seriesImagePoster = POSTER_BASE_URL + series.imageSeries

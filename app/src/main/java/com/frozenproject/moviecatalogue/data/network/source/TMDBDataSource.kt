@@ -47,7 +47,7 @@ interface TMDBDataSource {
 
     fun searchCatalogueSeries(
         compositeDisposable: CompositeDisposable,
-        seriesTitle: String
+        query: String
     ): LiveData<PagedList<ResultSeries>>
 
     fun getNetworkStateSearchSeries(): LiveData<NetworkState>

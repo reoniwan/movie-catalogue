@@ -1,6 +1,7 @@
 package com.frozenproject.moviecatalogue.utils
 
 import android.content.Context
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.frozenproject.moviecatalogue.data.db.CatalogueDatabase
 import com.frozenproject.moviecatalogue.data.db.LocalRepository
@@ -35,6 +36,14 @@ object Injection {
 
     fun provideViewModelFactory(context: Context): ViewModelProvider.Factory {
         return ViewModelFactory(provideTMDBRepository(context))
+    }
+
+    fun provideViewModelFactorySearch(context: Context, query: String): ViewModelProvider.Factory{
+        return ViewModelFactorySearch(provideTMDBRepository(context), query)
+    }
+
+    fun provideViewModelFactoryDetail(context: Context, id: Int): ViewModelProvider.Factory{
+        return ViewModelFactoryDetail(provideTMDBRepository(context), id)
     }
 
 }

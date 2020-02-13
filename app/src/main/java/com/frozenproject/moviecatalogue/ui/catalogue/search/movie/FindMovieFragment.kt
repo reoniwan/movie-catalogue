@@ -1,4 +1,4 @@
-package com.frozenproject.moviecatalogue.ui.catalogue.search
+package com.frozenproject.moviecatalogue.ui.catalogue.search.movie
 
 
 import android.os.Bundle
@@ -13,26 +13,23 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.network.NetworkState
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.MovieItemListAdapter
-import com.frozenproject.moviecatalogue.ui.catalogue.series.SeriesItemListAdapter
 import com.frozenproject.moviecatalogue.utils.Injection
-import com.frozenproject.moviecatalogue.utils.ViewModelFactory
-import kotlinx.android.synthetic.main.activity_find_catalogue.*
-import kotlinx.android.synthetic.main.fragment_find_catalogue_fragment.*
+import kotlinx.android.synthetic.main.fragment_find_movie.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class FindCatalogueFragment : Fragment() {
+class FindMovieFragment : Fragment() {
 
     private lateinit var viewModel: FindMovieViewModel
 
     companion object{
-        var movieTitle: String = ""
         private const val ARG_SECTION_NUMBER = "section_number"
         private const val ARG_QUERY = "query"
 
-        fun newInstance(index: Int, query: String): FindCatalogueFragment{
-            val fragment = FindCatalogueFragment()
+        fun newInstance(query: String, index: Int): FindMovieFragment {
+            val fragment =
+                FindMovieFragment()
             val bundle = Bundle()
             bundle.putInt(ARG_SECTION_NUMBER, index)
             bundle.putString(ARG_QUERY, query)
@@ -45,21 +42,22 @@ class FindCatalogueFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this, Injection.provideViewModelFactory(requireContext()))
-            .get(FindMovieViewModel::class.java)
 
-        if (arguments != null){
+        var movieTitle = ""
+        if (arguments != null) {
             movieTitle = arguments?.getString(ARG_QUERY) as String
-
         }
 
-        return inflater.inflate(R.layout.fragment_find_catalogue_fragment, container, false)
+
+        viewModel = ViewModelProvider(this, Injection
+            .provideViewModelFactorySearch(requireContext(), movieTitle))
+            .get(FindMovieViewModel::class.java)
+
+        return inflater.inflate(R.layout.fragment_find_movie, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
 
         val listMovieAdapter = MovieItemListAdapter(requireContext())

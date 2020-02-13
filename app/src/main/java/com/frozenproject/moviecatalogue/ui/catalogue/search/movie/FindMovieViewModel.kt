@@ -1,4 +1,4 @@
-package com.frozenproject.moviecatalogue.ui.catalogue.search
+package com.frozenproject.moviecatalogue.ui.catalogue.search.movie
 
 import androidx.lifecycle.ViewModel
 import com.frozenproject.moviecatalogue.data.repository.CatalogueRepository

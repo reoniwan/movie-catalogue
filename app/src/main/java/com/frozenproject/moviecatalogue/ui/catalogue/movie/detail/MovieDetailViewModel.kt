@@ -10,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 class MovieDetailViewModel(
     private val catalogueRepository: CatalogueRepository,
-    movieId: Int
+    private val movieId: Int
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 

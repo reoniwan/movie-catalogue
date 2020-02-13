@@ -12,11 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.ui.catalogue.search.FindCatalogueFragment
-import com.frozenproject.moviecatalogue.ui.catalogue.search.FindMovieViewModel
 import com.frozenproject.moviecatalogue.ui.catalogue.series.SeriesItemListAdapter
 import com.frozenproject.moviecatalogue.utils.Injection
-import kotlinx.android.synthetic.main.fragment_find_catalogue_fragment.*
 import kotlinx.android.synthetic.main.fragment_find_series.*
 
 /**
@@ -27,15 +24,14 @@ class FindSeriesFragment : Fragment() {
     private lateinit var viewModel: FindSeriesViewModel
 
     companion object{
-        var seriesTitle: String = ""
         private const val ARG_SECTION_NUMBER = "section_number"
-        private const val ARG_QUERY = "query"
+        private const val ARG_QUERY_SERIES = "query_series"
 
-        fun newInstance(index: Int, query: String): FindSeriesFragment {
+        fun newInstance(query: String,index: Int): FindSeriesFragment {
             val fragment = FindSeriesFragment()
             val bundle = Bundle()
             bundle.putInt(ARG_SECTION_NUMBER, index)
-            bundle.putString(ARG_QUERY, query)
+            bundle.putString(ARG_QUERY_SERIES, query)
             fragment.arguments = bundle
             return fragment
         }
@@ -46,12 +42,14 @@ class FindSeriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel = ViewModelProvider(this, Injection.provideViewModelFactory(requireContext()))
-            .get(FindSeriesViewModel::class.java)
-
-        if (arguments != null){
-            seriesTitle = arguments?.getString(ARG_QUERY) as String
+        var seriesTitle = ""
+        if (arguments != null) {
+            seriesTitle = arguments?.getString(ARG_QUERY_SERIES) as String
         }
+
+        viewModel = ViewModelProvider(this, Injection
+            .provideViewModelFactorySearch(requireContext(),seriesTitle))
+            .get(FindSeriesViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_find_series, container, false)
     }
@@ -73,6 +71,7 @@ class FindSeriesFragment : Fragment() {
         }
         rv_series_search.layoutManager = gridLayoutManager
         rv_series_search.setHasFixedSize(true)
+        rv_series_search.adapter = listSeriesAdapter
 
         val seriesCatalogueList =
             viewModel.searchSeriesEntries
@@ -96,8 +95,6 @@ class FindSeriesFragment : Fragment() {
                 listSeriesAdapter.setNetworkState(it)
             }
         })
-
-        rv_series_search.adapter = listSeriesAdapter
     }
 
 

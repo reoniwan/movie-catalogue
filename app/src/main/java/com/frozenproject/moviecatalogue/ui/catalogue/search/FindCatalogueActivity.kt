@@ -27,14 +27,24 @@ class FindCatalogueActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find_catalogue)
 
-        val query = intent.getStringExtra(KEY_QUERY)
+        val query = intent.getStringExtra(KEY_QUERY) ?: throw  Exception()
 
         val sectionsPagerAdapter = SearchPagerAdapter(this, supportFragmentManager, query)
         view_pager_search.adapter = sectionsPagerAdapter
         tabs_search.setupWithViewPager(view_pager_search)
 
         setSupportActionBar(toolbar_search)
+        val actionBar = supportActionBar
+        actionBar?.title = getString(R.string.search_result)
+        actionBar?.subtitle = "\"$query\""
 
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
 }

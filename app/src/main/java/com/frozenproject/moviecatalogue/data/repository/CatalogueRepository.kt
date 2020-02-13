@@ -61,7 +61,6 @@ class CatalogueRepository(
         return localRepository.addToFavorite(data)
     }
 
-
     //Series
     override fun getAllSeries(compositeDisposable: CompositeDisposable): LiveData<PagedList<ResultSeries>> {
         return remoteRepository.fetchLiveSeriesPageList(compositeDisposable)
@@ -76,9 +75,9 @@ class CatalogueRepository(
 
     override fun searchCatalogueSeries(
         compositeDisposable: CompositeDisposable,
-        seriesTitle: String
+        query: String
     ): LiveData<PagedList<ResultSeries>> {
-        return remoteRepository.searchCatalogueSeries(compositeDisposable, seriesTitle)
+        return remoteRepository.searchCatalogueSeries(compositeDisposable, query)
     }
 
     override fun getNetworkStateSearchSeries(): LiveData<NetworkState> {

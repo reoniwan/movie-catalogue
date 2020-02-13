@@ -49,7 +49,7 @@ class SeriesItemListAdapter(private var context: Context) :
 
     class SeriesItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(series: ResultSeries?, context: Context) {
-            itemView.txt_title_series.text = series?.titleSeries
+            itemView.txt_title_series.text = series?.name
             itemView.txt_release_series.text = series?.releaseDate
             itemView.txt_rating_series.text = series?.ratingSeries.toString()
 
@@ -74,7 +74,7 @@ class SeriesItemListAdapter(private var context: Context) :
         fun bind(networkState: NetworkState?) {
 
             //Progress Bar Running when loaded data
-            if (networkState != null) {
+            if (networkState != null && networkState == NetworkState.LOADING) {
                 itemView.progress_bar_item_movie.visibility = View.VISIBLE
             } else {
                 itemView.progress_bar_item_movie.visibility = View.GONE

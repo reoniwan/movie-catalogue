@@ -74,7 +74,7 @@ class MovieItemListAdapter(private var context: Context) :
         fun bind(networkState: NetworkState?) {
 
             //Progress Bar Running when loaded data
-            if (networkState != null) {
+            if (networkState != null && networkState == NetworkState.LOADING) {
                 itemView.progress_bar_item_movie.visibility = View.VISIBLE
             } else {
                 itemView.progress_bar_item_movie.visibility = View.GONE

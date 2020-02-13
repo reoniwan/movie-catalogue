@@ -10,14 +10,12 @@ import java.util.concurrent.TimeUnit
 
 const val BASE_URL = "https://api.themoviedb.org/3/"
 const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342"
+const val ID = "id"
 
 const val FIRST_PAGE = 1
 const val POST_PAGE = 10
 
-const val CATALOGUE_ID = 1
-const val ID = "id"
 
-const val SEARCH = "search"
 
 object APICatalogueClient {
 

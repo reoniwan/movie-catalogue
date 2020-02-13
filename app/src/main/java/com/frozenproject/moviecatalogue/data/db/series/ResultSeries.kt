@@ -1,6 +1,7 @@
 package com.frozenproject.moviecatalogue.data.db.series
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -11,17 +12,17 @@ import kotlinx.android.parcel.Parcelize
 data class ResultSeries(
     @SerializedName("id")
     @PrimaryKey
-    val idSeries: Int,
+    var idSeries: Int,
     @SerializedName("overview")
-    val overview: String,
+    var overview: String,
     @SerializedName("poster_path")
-    val imageSeries: String,
+    var imageSeries: String,
     @SerializedName("first_air_date")
-    val releaseDate: String,
+    var releaseDate: String,
     @SerializedName("name")
-    val titleSeries: String,
+    val name: String,
     @SerializedName("vote_average")
-    val ratingSeries: Double,
+    var ratingSeries: Double,
     @SerializedName("backdrop_path")
-    val backdropSeries: String
+    var backdropSeries: String
 ) : Parcelable

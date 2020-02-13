@@ -1,32 +1,33 @@
 package com.frozenproject.moviecatalogue.data.db.movie
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-
 
 @Parcelize
 @Entity(tableName = "favorite_movie")
 data class ResultMovie(
     @SerializedName("id")
     @PrimaryKey
-    val idMovie: Int,
+    var idMovie: Int,
     @SerializedName("overview")
-    val overview: String,
+    var overview: String,
     @SerializedName("poster_path")
-    val imageMovie: String,
+    var imageMovie: String,
     @SerializedName("release_date")
-    val releaseDate: String,
+    var releaseDate: String,
     @SerializedName("title")
-    val title: String,
+    var title: String,
     @SerializedName("vote_average")
-    val rating: Double,
+    var rating: Double,
     @SerializedName("vote_count")
-    val vote: Int,
+    var vote: Int,
     @SerializedName("popularity")
-    val popularity: Double,
+    var popularity: Double,
     @SerializedName("backdrop_path")
-    val backdrop: String
-) : Parcelable
+    var backdrop: String
+) : Parcelable{
+}

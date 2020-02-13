@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.layout_catalogue_detail_series.*
 class DetailSeriesActivity : AppCompatActivity() {
 
     private val viewModel: DetailSeriesViewModel by lazy {
-        ViewModelProvider(this, Injection.provideViewModelFactory(this))
+        ViewModelProvider(this, Injection.provideViewModelFactoryDetail(this, seriesId))
             .get(DetailSeriesViewModel::class.java)
     }
 
@@ -41,7 +41,7 @@ class DetailSeriesActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Data Series
-        seriesId = intent.getIntExtra(ID, CATALOGUE_ID)
+        seriesId = intent.getIntExtra(ID, 0)
         val data = intent.getParcelableExtra<ResultSeries>(EXTRA_SERIES) //BUG API 29
         val isFavorite = intent.getBooleanExtra(
             IS_FAVORITE_SERIES,

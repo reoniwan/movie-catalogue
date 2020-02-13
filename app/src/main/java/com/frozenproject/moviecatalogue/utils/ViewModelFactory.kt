@@ -7,11 +7,6 @@ import com.frozenproject.moviecatalogue.ui.catalogue.movie.MovieListViewModel
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.detail.MovieDetailActivity
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.detail.MovieDetailViewModel
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.favorite.MovieFavoriteViewModel
-import com.frozenproject.moviecatalogue.ui.catalogue.search.FindCatalogueActivity
-import com.frozenproject.moviecatalogue.ui.catalogue.search.FindCatalogueFragment
-import com.frozenproject.moviecatalogue.ui.catalogue.search.FindMovieViewModel
-import com.frozenproject.moviecatalogue.ui.catalogue.search.series.FindSeriesFragment
-import com.frozenproject.moviecatalogue.ui.catalogue.search.series.FindSeriesViewModel
 import com.frozenproject.moviecatalogue.ui.catalogue.series.SeriesListViewModel
 import com.frozenproject.moviecatalogue.ui.catalogue.series.detail.DetailSeriesActivity
 import com.frozenproject.moviecatalogue.ui.catalogue.series.detail.DetailSeriesViewModel
@@ -32,8 +27,6 @@ class ViewModelFactory constructor(
                     MovieDetailViewModel(repository, MovieDetailActivity.movieId)
                 isAssignableFrom(MovieFavoriteViewModel::class.java) ->
                     MovieFavoriteViewModel(repository)
-                isAssignableFrom(FindMovieViewModel::class.java) ->
-                    FindMovieViewModel(repository, FindCatalogueFragment.movieTitle)
                 //Series
                 isAssignableFrom(SeriesListViewModel::class.java) ->
                     SeriesListViewModel(repository)
@@ -41,8 +34,6 @@ class ViewModelFactory constructor(
                     DetailSeriesViewModel(repository, DetailSeriesActivity.seriesId)
                 isAssignableFrom(SeriesFavoriteViewModel::class.java) ->
                     SeriesFavoriteViewModel(repository)
-                isAssignableFrom(FindSeriesViewModel::class.java) ->
-                    FindSeriesViewModel(repository, FindSeriesFragment.seriesTitle)
                 else ->
                     throw  IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

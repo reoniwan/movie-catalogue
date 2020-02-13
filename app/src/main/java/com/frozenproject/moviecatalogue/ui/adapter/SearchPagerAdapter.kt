@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.ui.catalogue.movie.favorite.MovieFavoriteFragment
-import com.frozenproject.moviecatalogue.ui.catalogue.search.FindCatalogueFragment
+import com.frozenproject.moviecatalogue.ui.catalogue.search.movie.FindMovieFragment
 import com.frozenproject.moviecatalogue.ui.catalogue.search.series.FindSeriesFragment
-import com.frozenproject.moviecatalogue.ui.catalogue.series.favorite.SeriesFavoriteFragment
 
 class SearchPagerAdapter(
     private val mContext: Context,
@@ -24,15 +22,13 @@ class SearchPagerAdapter(
     )
 
     override fun getItem(position: Int): Fragment {
-        val fragmentMovie = 1
-        val fragment: Fragment?
-        fragment = if (position == fragmentMovie) {
-            FindCatalogueFragment.newInstance(position+1, query)
-        } else {
-            FindSeriesFragment.newInstance(position, query)
+        var fragment: Fragment? = null
+        when(position) {
+            0 -> fragment = FindMovieFragment.newInstance(query, position)
+            1 ->  fragment = FindSeriesFragment.newInstance(query, position)
         }
 
-        return fragment
+        return fragment as Fragment
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

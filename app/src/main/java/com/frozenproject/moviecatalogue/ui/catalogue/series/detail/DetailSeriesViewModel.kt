@@ -9,7 +9,8 @@ import com.frozenproject.moviecatalogue.data.repository.CatalogueRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class DetailSeriesViewModel(
-    private val repository: CatalogueRepository, seriesId: Int
+    private val repository: CatalogueRepository,
+    private val seriesId: Int
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()

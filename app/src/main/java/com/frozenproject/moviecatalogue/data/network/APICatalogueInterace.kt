@@ -7,6 +7,7 @@ import com.frozenproject.moviecatalogue.data.db.series.SeriesDetail
 import com.frozenproject.moviecatalogue.data.network.response.MovieCatalogueResponse
 import com.frozenproject.moviecatalogue.data.network.response.SeriesCatalogueResponse
 import io.reactivex.Single
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -30,6 +31,12 @@ interface APICatalogueInterface {
         @Query("query") query: String
     ): Single<MovieCatalogueResponse>
 
+    @GET("discover/movie")
+    fun getMovieRelease(
+        @Query("primary_release_date.gte") releaseDate: String,
+        @Query("primary_release_date.lte") reReleaseDate: String
+    ): Call<MovieCatalogueResponse>
+
     @GET("discover/tv")
     fun getCatalogueSeries(
         @Query("page") page: Int
@@ -40,7 +47,7 @@ interface APICatalogueInterface {
         @Path("tv_id") id: Int
     ): Single<SeriesDetail>
 
-    @GET("search/movie")
+    @GET("search/tv")
     fun searchSeries(
         @Query("page") page: Int,
         @Query("query") query: String

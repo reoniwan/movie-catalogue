@@ -15,6 +15,7 @@
     <string name="tv_series">TV SERIES</string>
     <string name="movie">MOVIE</string>
     <string name="favorite">Favorite List</string>
+    <string name="search_result">Search Result</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="series_title">Series Title</string>
@@ -26,7 +27,7 @@
     <string name="image_tv_series">Image Tv Series</string>
     <string name="image_actor">Image Actor</string>
     <string name="actor">Actor</string>
-    <string name="change_language_settings">Change Language Settings</string>
+    <string name="change_language_settings">Change Language</string>
     <string name="background">Background</string>
     <string name="connection_problem">Connection Problem!!</string>
     <string name="date_last">Last Air Date</string>
@@ -38,7 +39,26 @@
     <string name="posterfavmovie">posterFavMovie</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">DilemaXXI: Favorite Flicks</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_widget">NO DATA</string>
+    <string name="no_movies_today">Today no movie Release</string>
+    <string name="title_release_daily">Want to check new movie today?</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="has_been_release_today">has been released today. Check it out!!</string>
+    <string name="title_reminder">Well… sure don\'t want to check movie today?</string>
+    <string name="text_reminder">Lets open it again here, get information related to the latest movies and tv series today.</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="summary_off_daily">Afraid to forget to check a movie? Activate to remind you every 07.00 am.</string>
+    <string name="key_release">release</string>
+    <string name="summary_on_daily">You wil be reminded to stay tune every 07.00 am.</string>
+    <string name="summary_off_reminder">Don\'t miss any new movie releases every 08.00 am</string>
+    <string name="summary_on_reminder">Reminder is active, new movie notifications will be reminded every 08.00 am</string>
+    <string name="daily">daily</string>
+    <string name="setting_reminder">Setting Reminder</string>
+    <string name="reminder_actived">Reminder has been activated</string>
+    <string name="reminder_deactived">Reminder has been deactivated</string>
+    <string name="settings">Settings</string>
 
 
 </resources>

@@ -15,6 +15,7 @@ import com.frozenproject.moviecatalogue.ui.adapter.SectionsPagerAdapter
 import com.frozenproject.moviecatalogue.ui.catalogue.movie.MovieListFragment
 import com.frozenproject.moviecatalogue.ui.catalogue.search.FindCatalogueActivity
 import com.frozenproject.moviecatalogue.ui.catalogue.series.SeriesListFragment
+import com.frozenproject.moviecatalogue.ui.catalogue.settings.SettingReminderActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view_pager
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -70,6 +71,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(v: MenuItem): Boolean {
         if (v.itemId == R.id.action_change_settings) {
             val menuIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+
+            startActivity(menuIntent)
+        } else if(v.itemId == R.id.setting_reminder){
+            val menuIntent = Intent(this, SettingReminderActivity::class.java)
 
             startActivity(menuIntent)
         }
