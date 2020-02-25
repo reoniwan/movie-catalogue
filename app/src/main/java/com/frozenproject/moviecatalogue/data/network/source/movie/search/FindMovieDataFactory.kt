@@ -10,7 +10,7 @@ class FindMovieDataFactory(
     private val compositeDisposable: CompositeDisposable,
     private val apiService: APICatalogueInterface,
     private val query: String
-): DataSource.Factory<Int, ResultMovie>() {
+) : DataSource.Factory<Int, ResultMovie>() {
 
     val searchDataSource = MutableLiveData<FindMovieDataSource>()
 

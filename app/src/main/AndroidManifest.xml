@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <permission android:name="com.frozenproject.moviecatalogue.provider.READ_DATABASE"
+        android:protectionLevel="normal"/>
+
+    <permission android:name="com.frozenproject.moviecatalogue.provider.WRITE_DATABASE"
+        android:protectionLevel="normal"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +20,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.catalogue.settings.SettingReminderActivity"></activity>
+        <provider
+            android:name=".provider.CatalogueProvider"
+            android:authorities="com.frozenproject.moviecatalogue.provider"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.frozenproject.moviecatalogue.provider.READ_DATABASE"
+            android:writePermission="com.frozenproject.moviecatalogue.provider.WRITE_DATABASE"/>
+
+        <activity android:name=".ui.catalogue.settings.SettingReminderActivity" />
 
         <receiver
             android:name=".reminder.DailyReminderReceiver"
@@ -42,8 +56,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.catalogue.movie.detail.MovieDetailActivity" />
-        <activity android:name=".ui.catalogue.series.detail.DetailSeriesActivity" />
+        <activity android:name=".ui.catalogue.detail.MovieDetailActivity" />
         <activity android:name=".ui.FavoriteActivity" />
 
         <service

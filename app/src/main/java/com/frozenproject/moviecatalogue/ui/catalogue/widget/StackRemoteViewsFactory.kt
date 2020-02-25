@@ -1,7 +1,5 @@
 package com.frozenproject.moviecatalogue.ui.catalogue.widget
 
-import android.appwidget.AppWidgetManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -12,7 +10,6 @@ import androidx.core.os.bundleOf
 import com.frozenproject.moviecatalogue.data.db.CatalogueDatabase
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.db.series.ResultSeries
-import androidx.paging.DataSource
 import com.bumptech.glide.Glide
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.network.POSTER_BASE_URL
@@ -20,7 +17,7 @@ import java.util.concurrent.ExecutionException
 
 class StackRemoteViewsFactory(
     private val mContext: Context
-): RemoteViewsService.RemoteViewsFactory {
+) : RemoteViewsService.RemoteViewsFactory {
 
     private val widgetItems = ArrayList<String>()
     private val widgetsItemsName = ArrayList<String>()
@@ -38,15 +35,15 @@ class StackRemoteViewsFactory(
 
     override fun onDataSetChanged() {
         val identityToken = Binder.clearCallingIdentity()
-        movies = database.favoriteMovieDao.selectByFavoriteForWidget()
-        series = database.seriesFavoriteDao.selectByFavoriteForWidget()
+        movies = database.favoriteMovieDao().selectByFavoriteForWidget()
+        series = database.seriesFavoriteDao().selectByFavoriteForWidget()
 
-        for (entryMovie in movies){
+        for (entryMovie in movies) {
             widgetItems.add(entryMovie.backdrop)
             widgetsItemsName.add(entryMovie.title)
         }
 
-        for (entrySeries in series){
+        for (entrySeries in series) {
             widgetItems.add(entrySeries.backdropSeries)
             widgetsItemsName.add(entrySeries.name)
         }
@@ -72,9 +69,9 @@ class StackRemoteViewsFactory(
                 .load(backdropPath)
                 .submit()
                 .get()
-        } catch (e: InterruptedException){
+        } catch (e: InterruptedException) {
             e.printStackTrace()
-        } catch (e: ExecutionException){
+        } catch (e: ExecutionException) {
             e.printStackTrace()
         }
 

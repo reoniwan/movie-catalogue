@@ -10,7 +10,7 @@ class FindSeriesDataFactory(
     private val compositeDisposable: CompositeDisposable,
     private val apiService: APICatalogueInterface,
     private val query: String
-):DataSource.Factory<Int, ResultSeries>() {
+) : DataSource.Factory<Int, ResultSeries>() {
 
     val searchDataSource = MutableLiveData<FindSeriesDataSource>()
 

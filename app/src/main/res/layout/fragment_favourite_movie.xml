@@ -19,6 +19,6 @@
         android:fontFamily="@font/casper_marker"
         android:text="@string/empty_favourite"
         android:textSize="35sp"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </RelativeLayout>

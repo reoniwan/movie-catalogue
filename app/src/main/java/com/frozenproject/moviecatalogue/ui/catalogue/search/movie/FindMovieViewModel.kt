@@ -7,7 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 class FindMovieViewModel(
     private val repository: CatalogueRepository,
     private val movieTitle: String
-): ViewModel() {
+) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 

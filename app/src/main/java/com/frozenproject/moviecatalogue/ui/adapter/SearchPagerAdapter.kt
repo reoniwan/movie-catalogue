@@ -13,7 +13,7 @@ class SearchPagerAdapter(
     private val mContext: Context,
     fragmentManager: FragmentManager,
     private val query: String
-): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     @StringRes
     private val TAB_TITLES = intArrayOf(
@@ -23,9 +23,9 @@ class SearchPagerAdapter(
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
-        when(position) {
+        when (position) {
             0 -> fragment = FindMovieFragment.newInstance(query, position)
-            1 ->  fragment = FindSeriesFragment.newInstance(query, position)
+            1 -> fragment = FindSeriesFragment.newInstance(query, position)
         }
 
         return fragment as Fragment

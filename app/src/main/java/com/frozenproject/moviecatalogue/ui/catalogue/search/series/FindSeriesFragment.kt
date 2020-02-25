@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.ui.catalogue.series.SeriesItemListAdapter
+import com.frozenproject.moviecatalogue.ui.catalogue.home.series.SeriesItemListAdapter
 import com.frozenproject.moviecatalogue.utils.Injection
 import kotlinx.android.synthetic.main.fragment_find_series.*
 
@@ -23,11 +23,11 @@ class FindSeriesFragment : Fragment() {
 
     private lateinit var viewModel: FindSeriesViewModel
 
-    companion object{
+    companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
         private const val ARG_QUERY_SERIES = "query_series"
 
-        fun newInstance(query: String,index: Int): FindSeriesFragment {
+        fun newInstance(query: String, index: Int): FindSeriesFragment {
             val fragment = FindSeriesFragment()
             val bundle = Bundle()
             bundle.putInt(ARG_SECTION_NUMBER, index)
@@ -47,8 +47,10 @@ class FindSeriesFragment : Fragment() {
             seriesTitle = arguments?.getString(ARG_QUERY_SERIES) as String
         }
 
-        viewModel = ViewModelProvider(this, Injection
-            .provideViewModelFactorySearch(requireContext(),seriesTitle))
+        viewModel = ViewModelProvider(
+            this, Injection
+                .provideViewModelFactorySearch(requireContext(), seriesTitle)
+        )
             .get(FindSeriesViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_find_series, container, false)
@@ -56,15 +58,18 @@ class FindSeriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val listSeriesAdapter = SeriesItemListAdapter(requireContext())
+        val listSeriesAdapter =
+            SeriesItemListAdapter(
+                requireContext()
+            )
 
         val gridLayoutManager = GridLayoutManager(context, 3)
 
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                val viewType =  listSeriesAdapter.getItemViewType(position)
+                val viewType = listSeriesAdapter.getItemViewType(position)
                 return if (
-                    viewType ==listSeriesAdapter.seriesViewType) 1
+                    viewType == listSeriesAdapter.seriesViewType) 1
                 else 3
             }
 

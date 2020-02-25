@@ -6,6 +6,7 @@
     <string name="release">Release Date</string>
     <string name="revenue">Revenue</string>
     <string name="like">Like</string>
+    <string name="unlike">Unlike</string>
     <string name="description">Overview</string>
     <string name="title">Title</string>
     <string name="movie_title">Movie Title</string>
@@ -16,6 +17,7 @@
     <string name="movie">MOVIE</string>
     <string name="favorite">Favorite List</string>
     <string name="search_result">Search Result</string>
+    <string name="searching">Find your title movie or tv series…</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="series_title">Series Title</string>

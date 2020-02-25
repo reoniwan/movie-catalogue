@@ -9,31 +9,26 @@ import com.frozenproject.moviecatalogue.data.db.series.ResultSeries
 
 @Database(
     entities = [ResultMovie::class, ResultSeries::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class CatalogueDatabase : RoomDatabase() {
-    abstract val favoriteMovieDao: MovieFavoriteDao
-    abstract val seriesFavoriteDao: SeriesFavoriteDao
+    abstract fun favoriteMovieDao(): MovieFavoriteDao
+    abstract fun seriesFavoriteDao(): SeriesFavoriteDao
 
     companion object {
         @Volatile
         private var INSTANCE: CatalogueDatabase? = null
+        private val LOCK = Any()
 
-        fun getDatabase(context: Context): CatalogueDatabase {
-            val temptInstance = INSTANCE
-            if (temptInstance != null) {
-                return temptInstance
-            }
-            synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    CatalogueDatabase::class.java,
-                    "Favorite_Database"
-                ).build()
-
-                INSTANCE = instance
-                return instance
-            }
+        operator fun invoke(context: Context) = INSTANCE ?: synchronized(LOCK) {
+            INSTANCE ?: getDatabase(context).also { INSTANCE = it }
         }
+
+        fun getDatabase(context: Context) = Room.databaseBuilder(
+            context.applicationContext,
+            CatalogueDatabase::class.java,
+            "Favorite_Database"
+        ).build()
     }
 }

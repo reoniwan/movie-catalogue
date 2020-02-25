@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.frozenproject.moviecatalogue.R
-import com.frozenproject.moviecatalogue.ui.catalogue.movie.favorite.MovieFavoriteFragment
-import com.frozenproject.moviecatalogue.ui.catalogue.series.favorite.SeriesFavoriteFragment
+import com.frozenproject.moviecatalogue.ui.catalogue.favorite.FavoriteCatalogueFragment
 
 class SectionPagerFavorite(
     private val mContext: Context,
@@ -21,15 +20,7 @@ class SectionPagerFavorite(
     )
 
     override fun getItem(position: Int): Fragment {
-        val fragmentMovie = 0
-        val fragment: Fragment?
-        fragment = if (position == fragmentMovie) {
-            MovieFavoriteFragment.newInstance(position)
-        } else {
-            SeriesFavoriteFragment.newInstance(position)
-        }
-
-        return fragment
+        return FavoriteCatalogueFragment.newInstance(position + 1)
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

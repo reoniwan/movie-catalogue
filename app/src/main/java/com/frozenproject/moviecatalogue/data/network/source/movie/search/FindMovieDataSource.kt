@@ -1,15 +1,12 @@
 package com.frozenproject.moviecatalogue.data.network.source.movie.search
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import androidx.paging.PagedList
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.FIRST_PAGE
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
@@ -17,7 +14,7 @@ class FindMovieDataSource(
     private val compositeDisposable: CompositeDisposable,
     private val apiService: APICatalogueInterface,
     private val query: String
-): PageKeyedDataSource<Int, ResultMovie>()  {
+) : PageKeyedDataSource<Int, ResultMovie>() {
 
     private var page = FIRST_PAGE
 
@@ -32,10 +29,10 @@ class FindMovieDataSource(
         compositeDisposable.add(
             apiService.searchMovie(page, query)
                 .subscribeOn(Schedulers.io())
-                .subscribe({searchMovie ->
+                .subscribe({ searchMovie ->
                     callback.onResult(searchMovie.resultsMovie, null, page + 1)
                     networkState.postValue(NetworkState.LOADED)
-                },{error ->
+                }, { error ->
                     networkState.postValue(NetworkState.ERROR)
                     Log.e("MovieDataSource", error.message!!)
                 })
@@ -48,14 +45,14 @@ class FindMovieDataSource(
         compositeDisposable.add(
             apiService.searchMovie(params.key, query)
                 .subscribeOn(Schedulers.io())
-                .subscribe({searchMovie->
+                .subscribe({ searchMovie ->
                     if (searchMovie.totalPages >= params.key) {
                         callback.onResult(searchMovie.resultsMovie, params.key + 1)
                         networkState.postValue(NetworkState.LOADED)
                     } else {
                         networkState.postValue(NetworkState.END_LIST)
                     }
-                },{error->
+                }, { error ->
                     networkState.postValue(NetworkState.ERROR)
                     Log.e("MovieDataSource", error.message!!)
                 })

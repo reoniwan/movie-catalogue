@@ -15,8 +15,6 @@ const val ID = "id"
 const val FIRST_PAGE = 1
 const val POST_PAGE = 10
 
-
-
 object APICatalogueClient {
 
     fun getClient(): APICatalogueInterface {

@@ -4,15 +4,13 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.reminder.DailyReleaseReceiver
 import com.frozenproject.moviecatalogue.reminder.DailyReminderReceiver
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
-class SettingReminderFragment: PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+class SettingReminderFragment : PreferenceFragmentCompat(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var daily: String
     private lateinit var release: String
@@ -32,26 +30,42 @@ class SettingReminderFragment: PreferenceFragmentCompat(), SharedPreferences.OnS
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        when(key){
+        when (key) {
             daily -> {
                 val state = sharedPreferences.getBoolean(daily, false)
-                if (state){
+                if (state) {
                     dailyReminderReceiver.setDailyReminder(activity!!)
-                    Toast.makeText(activity, getString(R.string.reminder_actived), Toast.LENGTH_SHORT).show()
-                }else{
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.reminder_actived),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     dailyReminderReceiver.cancelDailyReminder(activity!!)
-                    Toast.makeText(activity, getString(R.string.reminder_deactived),Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.reminder_deactived),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             release -> {
                 val state = sharedPreferences.getBoolean(release, false)
-                if (state){
+                if (state) {
                     dailyReleaseReceiver.setDailyRelease(activity!!)
-                    Toast.makeText(activity, getString(R.string.reminder_actived), Toast.LENGTH_SHORT).show()
-                }else{
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.reminder_actived),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     dailyReleaseReceiver.cancelDailyRelease(activity!!)
-                    Toast.makeText(activity, getString(R.string.reminder_deactived),Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.reminder_deactived),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -96,8 +110,9 @@ class SettingReminderFragment: PreferenceFragmentCompat(), SharedPreferences.OnS
         daily = resources.getString(R.string.daily)
         release = resources.getString(R.string.key_release)
 
-        dailyPreference  = findPreference<SwitchPreferenceCompat>(daily) as SwitchPreferenceCompat
-        releasePreference = findPreference<SwitchPreferenceCompat>(release) as SwitchPreferenceCompat
+        dailyPreference = findPreference<SwitchPreferenceCompat>(daily) as SwitchPreferenceCompat
+        releasePreference =
+            findPreference<SwitchPreferenceCompat>(release) as SwitchPreferenceCompat
 
     }
 

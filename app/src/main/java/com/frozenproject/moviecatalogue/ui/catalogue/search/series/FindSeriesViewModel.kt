@@ -7,7 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 class FindSeriesViewModel(
     repository: CatalogueRepository,
     seriesTitle: String
-):ViewModel() {
+) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 

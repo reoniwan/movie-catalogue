@@ -11,7 +11,7 @@ import java.lang.IllegalArgumentException
 class ViewModelFactorySearch(
     private val repository: CatalogueRepository,
     private val query: String
-): ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
         with(modelClass) {

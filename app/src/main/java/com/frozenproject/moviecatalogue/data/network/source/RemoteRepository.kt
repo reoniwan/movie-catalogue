@@ -1,31 +1,30 @@
 package com.frozenproject.moviecatalogue.data.network.source
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.frozenproject.moviecatalogue.data.db.movie.MovieDetail
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.db.series.ResultSeries
-import com.frozenproject.moviecatalogue.data.db.series.SeriesDetail
 import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.NetworkState
 import com.frozenproject.moviecatalogue.data.network.POST_PAGE
 import com.frozenproject.moviecatalogue.data.network.source.movie.search.FindMovieDataSource
 import com.frozenproject.moviecatalogue.data.network.source.movie.MovieCatalogueDataFactory
 import com.frozenproject.moviecatalogue.data.network.source.movie.MovieCatalogueDataSource
-import com.frozenproject.moviecatalogue.data.network.source.movie.MovieDetailsNetworkDataSc
 import com.frozenproject.moviecatalogue.data.network.source.movie.search.FindMovieDataFactory
 import com.frozenproject.moviecatalogue.data.network.source.series.SeriesCatalogueDataFactory
 import com.frozenproject.moviecatalogue.data.network.source.series.SeriesCatalogueDataSource
-import com.frozenproject.moviecatalogue.data.network.source.series.SeriesDetailsNetworkDataSc
 import com.frozenproject.moviecatalogue.data.network.source.series.search.FindSeriesDataFactory
 import com.frozenproject.moviecatalogue.data.network.source.series.search.FindSeriesDataSource
 import io.reactivex.disposables.CompositeDisposable
 
 class RemoteRepository(
     val apiService: APICatalogueInterface
-) {
+) : ProviderDataSource {
     //Variable Movie
     private lateinit var moviePage: LiveData<PagedList<ResultMovie>>
     private lateinit var moviesDataSourceFactory: MovieCatalogueDataFactory
@@ -37,18 +36,10 @@ class RemoteRepository(
 
     private lateinit var searchSeriesDataFactory: FindSeriesDataFactory
 
-    //Variable Movie Detail
-    private lateinit var movieDetails: MovieDetailsNetworkDataSc
-    //Variable Series Detail
-    private lateinit var seriesDetails: SeriesDetailsNetworkDataSc
-
     //Movie Repository
-    fun fetchLiveMoviePageList(compositeDisposable: CompositeDisposable): LiveData<PagedList<ResultMovie>> {
+    fun fetchLiveMoviePageList(): LiveData<PagedList<ResultMovie>> {
         moviesDataSourceFactory =
-            MovieCatalogueDataFactory(
-                apiService,
-                compositeDisposable
-            )
+            MovieCatalogueDataFactory(apiService)
 
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
@@ -61,20 +52,30 @@ class RemoteRepository(
         return moviePage
     }
 
-    fun fetchMovieDetails(
-        compositeDisposable: CompositeDisposable,
-        movieId: Int
-    ): LiveData<MovieDetail> {
+    private val _downloadMovieDetailsResponse = MutableLiveData<ResultMovie>()
+    override val downloadMovieDetailsResponse: LiveData<ResultMovie>
+        get() = _downloadMovieDetailsResponse
 
-        movieDetails =
-            MovieDetailsNetworkDataSc(
-                apiService,
-                compositeDisposable
-            )
-        movieDetails.fetchMovieDetails(movieId)
+    private val _networkState = MutableLiveData<NetworkState>()
+    val networkState: LiveData<NetworkState>
+        get() = _networkState
 
-        return movieDetails.downloadedMovieResponse
+    override suspend fun fetchMovieDetail(movieId: Int) {
+        _networkState.postValue(NetworkState.LOADING)
+        try {
+            val fetchedMovieDetails = apiService.fetchMovieDetails(movieId)
+            if (fetchedMovieDetails.isSuccessful) {
+                _downloadMovieDetailsResponse.postValue(fetchedMovieDetails.body())
+                _networkState.postValue(NetworkState.LOADED)
+            } else {
+                _networkState.postValue(NetworkState.ERROR)
+                Log.e(TAG, fetchedMovieDetails.errorBody().toString())
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
+
 
     fun getNetworkStateMovie(): LiveData<NetworkState> {
         return Transformations.switchMap<MovieCatalogueDataSource, NetworkState>(
@@ -83,19 +84,16 @@ class RemoteRepository(
         )
     }
 
-    fun getMovieDetailsNetworkState(): LiveData<NetworkState> {
-        return movieDetails.networkState
-    }
-
     fun searchCatalogueMovie(
         compositeDisposable: CompositeDisposable,
         movieTitle: String
-    ): LiveData<PagedList<ResultMovie>>{
+    ): LiveData<PagedList<ResultMovie>> {
         searchMovieDataFactory =
             FindMovieDataFactory(
                 compositeDisposable,
                 apiService,
-                movieTitle)
+                movieTitle
+            )
 
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
@@ -108,7 +106,7 @@ class RemoteRepository(
         return moviePage
     }
 
-    fun getSearchNetworkStateMovie(): LiveData<NetworkState>{
+    fun getSearchNetworkStateMovie(): LiveData<NetworkState> {
         return Transformations.switchMap<FindMovieDataSource, NetworkState>(
             searchMovieDataFactory.searchDataSource,
             FindMovieDataSource::networkState
@@ -135,19 +133,28 @@ class RemoteRepository(
         return seriesPage
     }
 
-    fun fetchSeriesDetails(
-        compositeDisposable: CompositeDisposable,
-        seriesId: Int
-    ): LiveData<SeriesDetail> {
+    private val _downloadSeriesDetailsResponse = MutableLiveData<ResultSeries>()
+    override val downloadSeriesDetailsResponse: LiveData<ResultSeries>
+        get() = _downloadSeriesDetailsResponse
 
-        seriesDetails =
-            SeriesDetailsNetworkDataSc(
-                apiService,
-                compositeDisposable
-            )
-        seriesDetails.fetchSeriesDetails(seriesId)
+    private val _networkStateSeriesDetail = MutableLiveData<NetworkState>()
+    val networkStateSeriesDetails: LiveData<NetworkState>
+        get() = _networkStateSeriesDetail
 
-        return seriesDetails.downloadedSeriesResponse
+    override suspend fun fetchSeriesDetail(seriesId: Int) {
+        _networkStateSeriesDetail.postValue(NetworkState.LOADING)
+        try {
+            val fetchedSeriesDetails = apiService.fetchSeriesDetails(seriesId)
+            if (fetchedSeriesDetails.isSuccessful) {
+                _downloadSeriesDetailsResponse.postValue(fetchedSeriesDetails.body())
+                _networkStateSeriesDetail.postValue(NetworkState.LOADED)
+            } else {
+                _networkStateSeriesDetail.postValue(NetworkState.ERROR)
+                Log.e(TAG, fetchedSeriesDetails.errorBody().toString())
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun getNetworkStateSeries(): LiveData<NetworkState> {
@@ -157,14 +164,11 @@ class RemoteRepository(
         )
     }
 
-    fun getSeriesDetailsNetworkState(): LiveData<NetworkState> {
-        return seriesDetails.networkState
-    }
 
     fun searchCatalogueSeries(
         compositeDisposable: CompositeDisposable,
         seriesTitle: String
-    ):LiveData<PagedList<ResultSeries>>{
+    ): LiveData<PagedList<ResultSeries>> {
         searchSeriesDataFactory =
             FindSeriesDataFactory(
                 compositeDisposable,
@@ -184,7 +188,7 @@ class RemoteRepository(
 
     }
 
-    fun getSearchNetworkStateSeries(): LiveData<NetworkState>{
+    fun getSearchNetworkStateSeries(): LiveData<NetworkState> {
         return Transformations.switchMap<FindSeriesDataSource, NetworkState>(
             searchSeriesDataFactory.searchDataSource,
             FindSeriesDataSource::networkState

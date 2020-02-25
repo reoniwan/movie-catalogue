@@ -6,6 +6,7 @@
     <string name="release">Tanggal Rilis</string>
     <string name="revenue">Penghasilan</string>
     <string name="like">Suka</string>
+    <string name="unlike">Batal Suka</string>
     <string name="description">Gambaran Cerita</string>
     <string name="title">Judul</string>
     <string name="movie_title">Judul Film</string>
@@ -16,6 +17,7 @@
     <string name="movie">FILM</string>
     <string name="favorite">Daftar Favorite</string>
     <string name="search_result">Pencarian Berhasil</string>
+    <string name="searching">Temukan judul film atau serialTV-mu…</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="series_title">Judul Serial</string>
@@ -40,22 +42,22 @@
     <string name="appwidget_text">DilemaXXI: Favorite Flicks</string>
     <string name="add_widget">Add widget</string>
     <string name="empty_widget">NO DATA</string>
-    <string name="no_movies_today">Today no movie Release</string>
-    <string name="title_release_daily">Want to check new movie today?</string>
+    <string name="no_movies_today">Hari ini tidak ada Rilis film.</string>
+    <string name="title_release_daily">Ingin melihat film baru hari ini?</string>
     <string name="release_reminder">Release Reminder</string>
-    <string name="has_been_release_today">has been released today. Check it out!!</string>
-    <string name="title_reminder">Well… sure don\'t want to check movie today?</string>
-    <string name="text_reminder">Lets open it again here, get information related to the latest movies and tv series today.</string>
+    <string name="has_been_release_today">telah dirilis hari ini. Coba lihat!!</string>
+    <string name="title_reminder">Ok… yakin tidak mau melihat film hari ini?</string>
+    <string name="text_reminder">Mari kita buka lagi di sini, dapatkan informasi terkait film dan serial tv terbaru hari ini.</string>
     <string name="daily_reminder">Daily Reminder</string>
-    <string name="summary_off_daily">Afraid to forget to check a movie? Activate to remind you every 07.00 am.</string>
+    <string name="summary_off_daily">Takut lupa menonton film? Aktifkan untuk mengingatkan Anda setiap 07.00 pagi.</string>
     <string name="key_release">release</string>
-    <string name="summary_on_daily">You wil be reminded to stay tune every 07.00 am.</string>
-    <string name="summary_off_reminder">Don\'t miss any new movie releases every 08.00 am.</string>
-    <string name="summary_on_reminder">Reminder is active, new movie notifications will be reminded every 08.00 am.</string>
+    <string name="summary_on_daily">Anda akan diingatkan untuk tetap terhubung setiap pukul 07.00 pagi.</string>
+    <string name="summary_off_reminder">Jangan lewatkan rilis film baru setiap jam 08.00 pagi.</string>
+    <string name="summary_on_reminder">Pengingat aktif, pemberitahuan film baru akan diingatkan setiap 08.00 pagi.</string>
     <string name="daily">daily</string>
-    <string name="setting_reminder">Setting Reminder</string>
-    <string name="reminder_actived">Reminder has been activated</string>
-    <string name="reminder_deactived">Reminder has been deactivated</string>
+    <string name="setting_reminder">Atur Pengingat</string>
+    <string name="reminder_actived">Pengingat sudah diaktifkan</string>
+    <string name="reminder_deactived">Pengingat sudah dimatikan</string>
     <string name="settings">Pengaturan</string>
 
 </resources>

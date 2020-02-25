@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.network.NetworkState
-import com.frozenproject.moviecatalogue.ui.catalogue.movie.MovieItemListAdapter
+import com.frozenproject.moviecatalogue.ui.catalogue.home.movie.MovieItemListAdapter
 import com.frozenproject.moviecatalogue.utils.Injection
 import kotlinx.android.synthetic.main.fragment_find_movie.*
 
@@ -23,7 +23,7 @@ class FindMovieFragment : Fragment() {
 
     private lateinit var viewModel: FindMovieViewModel
 
-    companion object{
+    companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
         private const val ARG_QUERY = "query"
 
@@ -49,8 +49,10 @@ class FindMovieFragment : Fragment() {
         }
 
 
-        viewModel = ViewModelProvider(this, Injection
-            .provideViewModelFactorySearch(requireContext(), movieTitle))
+        viewModel = ViewModelProvider(
+            this, Injection
+                .provideViewModelFactorySearch(requireContext(), movieTitle)
+        )
             .get(FindMovieViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_find_movie, container, false)
@@ -60,7 +62,10 @@ class FindMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val listMovieAdapter = MovieItemListAdapter(requireContext())
+        val listMovieAdapter =
+            MovieItemListAdapter(
+                requireContext()
+            )
 
         val gridLayoutManager = GridLayoutManager(context, 3)
 
@@ -97,8 +102,6 @@ class FindMovieFragment : Fragment() {
 
         rv_catalogue_search.adapter = listMovieAdapter
     }
-
-
 
 
 }

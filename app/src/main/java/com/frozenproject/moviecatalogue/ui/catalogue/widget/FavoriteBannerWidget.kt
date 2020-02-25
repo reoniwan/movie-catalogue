@@ -3,7 +3,6 @@ package com.frozenproject.moviecatalogue.ui.catalogue.widget
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
@@ -16,7 +15,7 @@ import com.frozenproject.moviecatalogue.R
  */
 class FavoriteBannerWidget : AppWidgetProvider() {
 
-    companion object{
+    companion object {
         const val TOAST_ACTION = "TOAST_ACTION"
         const val EXTRA_ITEM = "EXTRA_ITEM"
     }
@@ -43,7 +42,7 @@ class FavoriteBannerWidget : AppWidgetProvider() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         super.onReceive(context, intent)
-        if (intent?.action != null){
+        if (intent?.action != null) {
             val viewIndex = intent.getStringExtra(EXTRA_ITEM)
             Toast.makeText(context, viewIndex, Toast.LENGTH_SHORT).show()
         }

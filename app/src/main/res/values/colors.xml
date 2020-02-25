@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="favorite">#e5e5e5</color>
     <color name="ripple">#778899</color>
+    <color name="searchResult">#3A913F</color>
 </resources>

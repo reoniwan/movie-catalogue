@@ -20,15 +20,12 @@ import androidx.core.content.ContextCompat
 import com.frozenproject.moviecatalogue.R
 import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.network.APICatalogueClient
-import com.frozenproject.moviecatalogue.data.network.ID
 import com.frozenproject.moviecatalogue.data.network.POSTER_BASE_URL
 import com.frozenproject.moviecatalogue.data.network.response.MovieCatalogueResponse
 import com.frozenproject.moviecatalogue.ui.MainActivity
-import com.frozenproject.moviecatalogue.ui.catalogue.movie.detail.MovieDetailActivity
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
-import java.net.HttpURLConnection
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
@@ -171,7 +168,7 @@ class DailyReleaseReceiver : BroadcastReceiver() {
 
                     val notification = builderExistMovie.build()
 
-                    notificationManager.notify(DAILY_RELEASE_ID, notification)
+                    notificationManager.notify(DAILY_RELEASE_ID + i, notification)
 
                 }
             }
@@ -190,7 +187,7 @@ class DailyReleaseReceiver : BroadcastReceiver() {
 
             val input = connection.getInputStream()
             return BitmapFactory.decodeStream(input)
-        }catch (e: IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
         }
 
@@ -225,7 +222,6 @@ class DailyReleaseReceiver : BroadcastReceiver() {
         pendingIntent.cancel()
 
         (context.getSystemService(Context.ALARM_SERVICE) as AlarmManager).cancel(pendingIntent)
-
 
     }
 }

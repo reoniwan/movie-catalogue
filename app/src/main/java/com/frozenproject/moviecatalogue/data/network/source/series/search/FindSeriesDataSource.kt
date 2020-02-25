@@ -3,7 +3,6 @@ package com.frozenproject.moviecatalogue.data.network.source.series.search
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import com.frozenproject.moviecatalogue.data.db.movie.ResultMovie
 import com.frozenproject.moviecatalogue.data.db.series.ResultSeries
 import com.frozenproject.moviecatalogue.data.network.APICatalogueInterface
 import com.frozenproject.moviecatalogue.data.network.FIRST_PAGE
@@ -15,7 +14,7 @@ class FindSeriesDataSource(
     private val compositeDisposable: CompositeDisposable,
     private val apiService: APICatalogueInterface,
     private val query: String
-): PageKeyedDataSource<Int, ResultSeries>()  {
+) : PageKeyedDataSource<Int, ResultSeries>() {
 
     private var page = FIRST_PAGE
 
@@ -30,10 +29,10 @@ class FindSeriesDataSource(
         compositeDisposable.add(
             apiService.searchSeries(page, query)
                 .subscribeOn(Schedulers.io())
-                .subscribe({ searchSeries->
-                    callback.onResult(searchSeries.resultsSeries, null, page+1)
+                .subscribe({ searchSeries ->
+                    callback.onResult(searchSeries.resultsSeries, null, page + 1)
                     networkState.postValue(NetworkState.LOADED)
-                },{err->
+                }, { err ->
                     networkState.postValue(NetworkState.ERROR)
                     Log.e("SeriesSearchDataSource", err.message!!)
                 })
@@ -47,10 +46,10 @@ class FindSeriesDataSource(
         compositeDisposable.add(
             apiService.searchSeries(params.key, query)
                 .subscribeOn(Schedulers.io())
-                .subscribe({searchSeries ->
-                    callback.onResult(searchSeries.resultsSeries, params.key+1)
+                .subscribe({ searchSeries ->
+                    callback.onResult(searchSeries.resultsSeries, params.key + 1)
                     networkState.postValue(NetworkState.LOADED)
-                },{err->
+                }, { err ->
                     networkState.postValue(NetworkState.ERROR)
                     Log.e("SeriesSearchDataSource", err.message!!)
                 })
