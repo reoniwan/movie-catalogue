@@ -10,7 +10,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.frozenproject.moviecatalogue"
         minSdkVersion 21
@@ -18,7 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", '"2b3907f8b4723221e1d39a76709e3269"')
+        buildConfigField("String", "API_KEY", '"YOUR API KEY"')
     }
     buildTypes {
         release {
